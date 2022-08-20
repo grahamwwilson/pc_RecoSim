@@ -5,7 +5,7 @@ date
 
 CODEDIR=$PWD
 
-INPUT=${1-batch_test}
+INPUT=${1-local_test3}
 NUMFILES=${2-0}
 NTHREADS=${3-1}
 VERSION=${4-1}
