@@ -1,0 +1,5 @@
+*.root
+compiledThreads
+*.o
+*.swp
+*.log
