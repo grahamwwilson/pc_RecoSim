@@ -23,7 +23,6 @@ using MyTH2D = ROOT::TThreadedObject<TH2D>;
 
 // struct for derived quantities of each conversion
 
-
 class histset{
     public:
        double PI =4.0*atan(1.0);
@@ -125,8 +124,8 @@ void histset::AnalyzeEntry(recosim& s){
 	//if(nPV == 1 && PV_ndof[0] >50) w_ndof=1.0;
 	//w = w_ndof * w_evt;
 	w = w_sumtk* w_evt;
-        // Reset to a weight of 1  Graham
-        w = 1.0;
+    // Reset to a weight of 1  Graham
+    w = 1.0;
 	
 	FillTH1(id_npv, nPV,w); 
         //if(nPV != 1 || PV_ndof[0] > 50) return;
@@ -147,8 +146,7 @@ void histset::AnalyzeEntry(recosim& s){
 		FillTH1(id_pvz, PV_Z[v], w);
 		FillTH1(id_pvtrksum, sumtkw, w);
 		if(nPV>1 && v>0)
-		FillTH1(id_pvdz, PV_Z[0] - PV_Z[v], w);
-		
+		FillTH1(id_pvdz, PV_Z[0] - PV_Z[v], w);	
 	}	
 	//FillTH1(id_sumpvtrksum, sum_sumtkw, w);
 
@@ -161,9 +159,9 @@ void histset::AnalyzeEntry(recosim& s){
 
 	FillTH1(id_sumpvtrksum, sum_sumtkw, w);	
 
-        //plot "raw" conv stuff
-        FillTH1( id_numpcHist, numberOfPC,w);
-std::vector<CommonVars> CVs = GetCommonVars(s,false);
+    //plot "raw" conv stuff
+    FillTH1( id_numpcHist, numberOfPC,w);
+    std::vector<CommonVars> CVs = GetCommonVars(s,false);
 
         for(int i=0; i<numberOfPC; i++){
                 double PC_pt = sqrt(PC_Px[i]*PC_Px[i] + PC_Py[i] * PC_Py[i]);
@@ -339,8 +337,8 @@ std::vector<CommonVars> CVs = GetCommonVars(s,false);
 	 double gpt,gpz,geta, tpt1,tpt2, costg, zpos;
 	 int gidx,t1idx,t2idx;
 	 double simr, sx,sy,simphi;
-	int vidx,t0idx;
-	double pt0,pt1,q0,simz, simthetag;
+	 int vidx,t0idx;
+	 double pt0,pt1,q0,simz, simthetag;
         //vidx is index of pc on simvtx
         //gidx, tXidx are index of SimTrack that correspond to simvtx_i
         for(int i=0; i<SPC.p14_key.size(); i++){
@@ -424,7 +422,6 @@ std::vector<CommonVars> CVs = GetCommonVars(s,false);
 		sy = SimVtx_y[i];
 		simr = sqrt(sx*sx + sy*sy);
 		
-
 		simphi=	atan2(sy,sx);
 		if (simphi < 0) { simphi += 2 * M_PI; }
 		//does it pass cuts? Require R<25 -- currently looking at context central bpix only
@@ -438,7 +435,6 @@ std::vector<CommonVars> CVs = GetCommonVars(s,false);
 			FillTH2(id_effptr_den,simr, gpt, w);
 			FillTH2(id_effptr_den_nowt,simr,gpt,1);
 			FillTH2(id_effER_den, simr, simE, w);
-
 			
 			FillTH2(id_effrphiD, simr,simphi,w); 
 			FillTH2(id_effrphiD_nowt, simr,simphi,1);			
@@ -539,62 +535,5 @@ std::vector<CommonVars> CVs = GetCommonVars(s,false);
 
 	}//end gidxlist loop
 	
-/*	
-	//do flux plots
-	std::vector< std::pair<int, int> > GColl = getGParentColl(s);
-	std::pair<int,int> coll;
-	std::pair<std::vector<double>, std::vector<double> > points;
-	//int gidx,type;
-	const Int_t nbinz = 5;
-        Double_t edgez[nbinz + 1] = {1.0, 5.0, 9.0, 13.5, 18.0, 25.0};
-	int type;
-	double Sx,Sy,Sz,Ex,Ey,Ez,SR,ER;
-	for(int i=0; i<GColl.size(); i++){
-		coll = GColl[i];
-		gidx = coll.first;
-		type = coll.second;
-		FillTH1(id_fluxcomp, type, w);
-		
-		//get this photons endpoints
-		points = getGEndpoints(s, gidx);
-		//1cm bins in R0-25	
-		//for(double binedge=0; binedge<25; binedge=binedge+0.25){
-		double binstart,binend;
-		for(int I=0; I<nbinz; I++){
-			binstart= edgez[I];
-			binend= edgez[I+1];
-			//does it pass cuts
-			//pt>.4? costheta? zpos?
-			 gpt = SimTrk_pt[gidx];
-			 geta = SimTrk_eta[gidx];
-                	 gpz = gpt*sinh(geta);
-                         costg = cos( atan2(gpt,gpz) );
-			 Sx = points.first[0]; 
-			 Sy = points.first[1];
-			 Sz = points.first[2];
-			 Ex = points.second[0];
-			 Ey = points.second[1];
-			 Ez = points.second[2];
-			if( abs(Sz) < GV.ZCUT && abs(costg) < GV.COSTCUT && gpt > GV.MINPT*2. ){	
-				//
-				SR = sqrt(Sx*Sx + Sy*Sy);
-				ER = sqrt(Ex*Ex + Ey*Ey);
-
-				//if(SR < binedge && Ex==-9999 && Ey==-9999){
-				if(SR < binstart && Ex == -9999 && Ey == -9999){
-				//	FillTH1(id_radflux, double(binedge)-0.1, w);
-					FillTH1(id_radfluxcoarse, binstart+0.1, w);
-				}
-				//else if(SR < binedge && ER >= binedge && Ex!=-9999 && Ey!=-9999){
-				else if(SR < binstart && ER >= binend && Ex!=-9999 && Ey!=-9999){
-					FillTH1(id_radfluxcoarse, binstart+0.1, w);
-				//	FillTH1(id_radflux,double(binedge)-0.1, w);
-				}
-			}
-			
-		}//end bin edge loop	
-	}
-	
-*/
 }  // End of sub-program
 #endif
