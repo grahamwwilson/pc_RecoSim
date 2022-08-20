@@ -1115,8 +1115,10 @@ std::vector<bool> GetCutMask(recosim& s, std::vector<CommonVars> cv ){
 	geta= cv[i].etaphys;
 //	std::cout<< rerr <<" "<< abs(z)<<" "<<abs(cos(theta))<<" "<<fitprob<<" "<<std::max(nBefore0,nBefore1)<<std::endl;
 //        if( rerr < GV.RERRCUT && abs(z) < GV.ZCUT && abs(cos(theta)) < GV.COSTCUT && fitprob > GV.FITPROBCUT && std::max(nBefore0,nBefore1)==0 && PT1 > GV.MINPT && PT2 > GV.MINPT){
-        if( rerr < GV.RERRCUT && abs(z) < GV.ZCUT && abs(cos(theta)) < GV.COSTCUT && fitprob > GV.FITPROBCUT && std::max(nBefore0,nBefore1)==0 && gPT > GV.MINGPT && abs(geta) < GV.CENTRALETA){
-//  	if(rerr < GV.RERRCUT && abs(z) < GV.ZCUT && abs(cos(theta)) < GV.COSTCUT && fitprob > GV.FITPROBCUT && std::max(nBefore0,nBefore1)==0 && gPT > GV.MINGPT){      
+//        if( rerr < GV.RERRCUT && abs(z) < GV.ZCUT && abs(cos(theta)) < GV.COSTCUT && fitprob > GV.FITPROBCUT && std::max(nBefore0,nBefore1)==0 && gPT > GV.MINGPT && abs(geta) < GV.CENTRALETA){
+
+// Remove superfluous eta cut
+     	if(rerr < GV.RERRCUT && abs(z) < GV.ZCUT && abs(cos(theta)) < GV.COSTCUT && fitprob > GV.FITPROBCUT && std::max(nBefore0,nBefore1)==0 && gPT > GV.MINGPT){      
                 cutmask[i] = true;
         }
         else{
