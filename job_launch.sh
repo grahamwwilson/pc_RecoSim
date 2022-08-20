@@ -12,6 +12,7 @@
 LIST="MinBias2018_Rsim_GWW_18"
 NUMFILES=10
 NTHREADS=10
+VERSION=1
 
 pwd
 hostname
@@ -40,7 +41,7 @@ pwd
 
 echo "Start execution"
 
-./runmyanalysis.sh ${LIST} ${NUMFILES} ${NTHREADS}
+./runmyanalysis.sh ${LIST} ${NUMFILES} ${NTHREADS} ${VERSION}
 
 date
 
