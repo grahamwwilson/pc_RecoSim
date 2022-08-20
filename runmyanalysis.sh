@@ -19,7 +19,7 @@ echo ${MACRO}
 INPUTLIST=${CODEDIR}/Lists/${INPUT}.list
 
 #Execute this from execution directory, so that we can have several output files in parallel
-EXEDIR=$PWD/pc_ExecutionDirectory/${INPUT}-${NTHREADS}
+EXEDIR=$PWD/pc_ExecutionDirectory/${INPUT}-${NUMFILES}-${NTHREADS}
 
 rm -r ${EXEDIR}
 # Check if it exists. If not make it.

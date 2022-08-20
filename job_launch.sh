@@ -10,7 +10,7 @@
 #SBATCH --output=conv2_%j.log           # Standard output and error log
 
 LIST="MinBias2018_Rsim_GWW_18"
-NUMFILES=0
+NUMFILES=10
 NTHREADS=10
 
 pwd

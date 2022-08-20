@@ -2,7 +2,7 @@ This is based on a fully self contained analysis template for PC study
 using RecoSIM trees written mainly by Justin Anguiano with contributions from Graham Wilson, 
 named PCAnalysis_RecoSIM.
 
-This version started from Justin's Jul7-20220truth-xsec branch of Jphsx/PCAnalysis_RecoSIM.
+This version started from Justin's Jul7-2022-truth-xsec branch of Jphsx/PCAnalysis_RecoSIM.
 
 all tests and jobs are pathed relative to repo, but data lists are hardcoded to directory on cluster
 
