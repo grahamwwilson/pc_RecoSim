@@ -9,7 +9,7 @@ void histset::init(){
     TH1Manager.at(id_ptHist) = new MyTH1D("ptHist", "p_{T} Distribution;p_{T};1/p_{T} dN/dp_{T}", 100, 0.0, 20.0);
     TH1Manager.at(id_pzHist) = new MyTH1D("pzHist", "p_{Z} Distribution;p_{Z};dN/dp_{Z}", 100, 0.0, 5.0);
     TH1Manager.at(id_numpcHist) = new MyTH1D("numpcHist", "Number of PC;;Entries per bin", 20,-0.5, 19.5);
-    TH1Manager.at(id_etaHist) = new MyTH1D("etaHist","PC #eta",60,-3,3);
+    TH1Manager.at(id_etaHist) = new MyTH1D("etaHist","PC #eta",48,-3.0,3.0);
 
     TH1Manager.at(id_numpccutHist) = new MyTH1D("numpccutHist","Number of PC After Selection Cuts;;Entries per bin",20,-0.5,19.5);
     TH1Manager.at(id_ptCutHist) = new MyTH1D("ptCutHist", "p_{T} Distribution after Selection;p_{T};1/p_{T} dN/dp_{T}", 100, 0.0, 5.0);
@@ -17,8 +17,8 @@ void histset::init(){
     TH1Manager.at(id_numHGNPCHist) = new MyTH1D("numHGNPCHist", "Number of PC after disambiguation;;Entries per bin",100,-0.5,99.5);
     TH1Manager.at(id_ptHCutHist) = new MyTH1D("ptHCutHist", "p_{T} Distribution after Selection + HGN;p_{T};1/p_{T} dN/dp_{T}", 100, 0.0, 5.0);
     TH1Manager.at(id_pzHCutHist) = new MyTH1D("pzHCutHist", "p_{Z} Distribution after Selection + HGN;p_{Z};dN/dp_{Z}", 100, 0.0, 5.0);
-    TH1Manager.at(id_etaCutHist) = new MyTH1D("etaCutHist", "#eta after selection",60,-3,3);
-    TH1Manager.at(id_etaHGNHist) = new MyTH1D("etaHGNHist", "#eta after selection +HGN",60,-3,3);
+    TH1Manager.at(id_etaCutHist) = new MyTH1D("etaCutHist", "#eta after selection",48,-3.0,3.0);
+    TH1Manager.at(id_etaHGNHist) = new MyTH1D("etaHGNHist", "#eta after selection +HGN",48,-3.0,3.0);
 
     TH1Manager.at(id_rerrHGNHist) = new MyTH1D("rerrHGNHist", "radial resolution", 30,0,0.3);
 
@@ -28,8 +28,7 @@ void histset::init(){
     TH1Manager.at(id_r25Hist_b2p5) = new MyTH1D("r25Hist_b2p5","r dist(2.5mm)",customNbins,0,25);
     TH1Manager.at(id_r25Hist_b2p5_nowt) = new MyTH1D("r25Hist_b2p5_nowt","r dist(2.5mm) no wt",customNbins,0,25);
 
-    
- //   TH1Manager.at(id_r25Hist_Truth_b2p5) = new MyTH1D("r25Hist_truth","r dist sim truth", customNbins,0,25);
+    // TH1Manager.at(id_r25Hist_Truth_b2p5) = new MyTH1D("r25Hist_truth","r dist sim truth", customNbins,0,25);
 
     TH1Manager.at(id_PVndof) = new MyTH1D("PVndof","Primary Vertex n.d.o.f, NPV=1",101,-0.5,100.5);
     TH1Manager.at(id_npv) = new MyTH1D("npv","N Primary Vertex",11,-0.5,10.5);
@@ -43,8 +42,8 @@ void histset::init(){
     TH1Manager.at(id_sumtksum_rlo) = new MyTH1D("sumtksum_rlo","sum of tk sum with r<=bpix2",50,0.5,50.5);
     TH1Manager.at(id_sumtksum_rhi) = new MyTH1D("sumtksum_rhi","sum of tk sum with r>bpix2",50,0.5,50.5);
  
-        //efficiency hists
-        const Int_t NBINS = 5;
+    //efficiency hists
+    const Int_t NBINS = 5;
    	Double_t edges[NBINS + 1] = {1.0, 5.0, 9.0, 13.5, 18.0, 25.0}; //custom radial bins 
     TH1Manager.at(id_eRden) = new MyTH1D("eRden","eff R denominator",NBINS,edges);
     TH1Manager.at(id_eRden_nowt) = new MyTH1D("eRden_nowt","eff R denominator unweighted",NBINS,edges);
@@ -65,7 +64,7 @@ void histset::init(){
     TH1Manager.at(id_eRnum_nowt) = new MyTH1D("eRnum_nowt","eff R numerator unweighted",NBINS,edges2);
 
     TH1Manager.at(id_eRnum_b2p5) = new MyTH1D("eRnum_b2p5","eff R numerator b2p5",customNbins,0,25);
-      TH1Manager.at(id_eRnum_b2p5_nowt) = new MyTH1D("eRnum_b2p5_nowt","eff R numerator b2p5 unweighted",customNbins,0,25);
+    TH1Manager.at(id_eRnum_b2p5_nowt) = new MyTH1D("eRnum_b2p5_nowt","eff R numerator b2p5 unweighted",customNbins,0,25);
 
  //   TH1Manager.at(id_eRnum_true_b2p5) = new MyTH1D("eRnum_true_b2p5","eff R numerator truth", customNbins,0,25);
     TH1Manager.at(id_ePtnum) = new MyTH1D("ePtnum","eff Pt numerator",10,0,5);
@@ -79,8 +78,6 @@ void histset::init(){
     TH1Manager.at(id_ePtnumf) = new MyTH1D("ePtnumf","eff Pt numerator",10,0,5);
     TH1Manager.at(id_etksumnumf) = new MyTH1D("etksumnumf","eff ntk numerator",12,8,20);
 
-	
-
 	//flux plots
 	//radial flux
 	//TH1Manager.at(id_radflux) = new MyTH1D("radflux","photon r flux",25,0,25);
@@ -93,7 +90,7 @@ void histset::init(){
 	//TH1Manager.at(id_rfluxcomp) = new MyTH1D("rfluxcomp","photon r composition",6,-0.6,5.5);
 
 	TH1Manager.at(id_gflux) = new MyTH1D("gflux", "photon r flux per mm",customNbins,0,25);	
-	TH1Manager.at(id_gflux_eta) = new MyTH1D("gflux_eta","photon physics #eta",100,-5,5);
+	TH1Manager.at(id_gflux_eta) = new MyTH1D("gflux_eta","photon physics #eta",48,-3.0,3.0);
 	TH1Manager.at(id_gflux_nowt) = new MyTH1D("gflux_nowt","photon r flux nowt",customNbins,0,25);
 	//TH1Manager.at(id_gflux_b2p5) = new MyTH1D("
 	TH1Manager.at(id_pc_chi2ndof) = new MyTH1D("pc_chi2ndof","chi2ndof",20,0,2);	
@@ -151,8 +148,6 @@ void histset::init(){
     TH2Manager.at(id_reta_effD_nowt) = new MyTH2D("reta_effD_nowt", "no wt eff denominator r-eta;#eta;R",16,-0.8,0.8,NBINS,edges3);
 
     TH2Manager.at(id_reta_ng) = new MyTH2D("reta_ng","number of photons r-eta;#eta;R",16,-0.8,0.8,NBINS,edges3);
-
-
  
     TH2Manager.at(id_ndof_pcReta) = new MyTH2D("ndof_pcReta","ndof and pc raw eta",51,-0.5,50.5,60,-3,3);
     TH2Manager.at(id_ndof_pcRpt) = new MyTH2D("ndof_pcRpt","ndof and pc raw pt",51,-0.5,50.5,50,0,20);
