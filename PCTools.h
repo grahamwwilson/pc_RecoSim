@@ -801,7 +801,7 @@ std::vector<int> getSimpleGidxList( recosim& s){
             gpz = gpt*sinh(geta);
             costg = cos( atan2(gpt,gpz) );
 			// it's a photon but does it pass cuts (check kinematics and if it passes check origin)
-			if(abs(costg) < GV.COSTCUT && gpt > GV.MINGPT){
+			if(abs(costg) < GV.COSTCUT && gpt > GV.MINGPT && abs(geta) < GV.ETACUT ){
 				// we passed some cuts now check origin
 				svidx = SimTrk_simvtx_Idx[i];
 // GWW. The corresponding vertex is the vertex of the photon origin. 
