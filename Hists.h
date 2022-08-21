@@ -140,13 +140,12 @@ void histset::init(){
     //TH2Manager.at(id_reta_effN) = new MyTH2D("reta_effN", "eff numerator r-eta;#eta;R",16,-0.8,0.8,100,0,25);
     //TH2Manager.at(id_reta_effD) = new MyTH2D("reta_effD", "eff denominator r-eta;#eta;R",16,-0.8,0.8,100,0,25);
     //TH2Manager.at(id_reta_ng) = new MyTH2D("reta_ng","number of photons r-eta;#eta;R",16,-0.8,0.8,100,0,25);
-    TH2Manager.at(id_reta_pc) = new MyTH2D("reta_pc", "reconstructed conversions r-eta;#eta;R",16,-0.8,0.8,NBINS,edges3);
-    TH2Manager.at(id_reta_effN) = new MyTH2D("reta_effN", "eff numerator r-eta;#eta;R",16,-0.8,0.8,NBINS,edges3);
-    TH2Manager.at(id_reta_effD) = new MyTH2D("reta_effD", "eff denominator r-eta;#eta;R",16,-0.8,0.8,NBINS,edges3);
-        TH2Manager.at(id_reta_effN_nowt) = new MyTH2D("reta_effN_nowt", "no wteff numerator r-eta;#eta;R",16,-0.8,0.8,NBINS,edges3);
-    TH2Manager.at(id_reta_effD_nowt) = new MyTH2D("reta_effD_nowt", "no wt eff denominator r-eta;#eta;R",16,-0.8,0.8,NBINS,edges3);
-
-    TH2Manager.at(id_reta_ng) = new MyTH2D("reta_ng","number of photons r-eta;#eta;R",16,-0.8,0.8,NBINS,edges3);
+    TH2Manager.at(id_reta_pc) = new MyTH2D("reta_pc", "reconstructed conversions r-eta;#eta;R",26,-1.3,1.3,NBINS,edges3);
+    TH2Manager.at(id_reta_effN) = new MyTH2D("reta_effN", "eff numerator r-eta;#eta;R",26,-1.3,1.3,NBINS,edges3);
+    TH2Manager.at(id_reta_effD) = new MyTH2D("reta_effD", "eff denominator r-eta;#eta;R",26,-1.3,1.3,NBINS,edges3);
+    TH2Manager.at(id_reta_effN_nowt) = new MyTH2D("reta_effN_nowt", "no wteff numerator r-eta;#eta;R",26,-1.3,1.3,NBINS,edges3);
+    TH2Manager.at(id_reta_effD_nowt) = new MyTH2D("reta_effD_nowt", "no wt eff denominator r-eta;#eta;R",26,-1.3,1.3,NBINS,edges3);
+    TH2Manager.at(id_reta_ng) = new MyTH2D("reta_ng","number of photons r-eta;#eta;R",26,-1.3,1.3,NBINS,edges3);
  
     TH2Manager.at(id_ndof_pcReta) = new MyTH2D("ndof_pcReta","ndof and pc raw eta",51,-0.5,50.5,60,-3,3);
     TH2Manager.at(id_ndof_pcRpt) = new MyTH2D("ndof_pcRpt","ndof and pc raw pt",51,-0.5,50.5,50,0,20);
