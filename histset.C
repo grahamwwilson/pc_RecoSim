@@ -109,7 +109,6 @@ void histset::WriteHist(){
 
 void histset::AnalyzeEntry(recosim& s){
 
-	 
 	double w = 1.0;
 	#include "localTreeMembers.h"     //All the variable incantations needed
 	//double w_ndof = w_pvndof0_BC;
@@ -128,14 +127,11 @@ void histset::AnalyzeEntry(recosim& s){
     w = 1.0;
 	
 	FillTH1(id_npv, nPV,w); 
-        //if(nPV != 1 || PV_ndof[0] > 50) return;
-       
+//if(nPV != 1 || PV_ndof[0] > 50) return;       
 //	if(nPV==0) return;
 //	if(nPV>0 && abs( PV_Z[0] ) > 1) return;
-
  
-	if(nPV == 1)
-        FillTH1(id_PVndof, PV_ndof[0],w);			
+	if(nPV == 1)FillTH1(id_PVndof, PV_ndof[0],w);			
 	
 	double sumtkw=0;
 	double sum_sumtkw=0;
@@ -161,86 +157,78 @@ void histset::AnalyzeEntry(recosim& s){
 
     //plot "raw" conv stuff
     FillTH1( id_numpcHist, numberOfPC,w);
+    // calculate common variables
     std::vector<CommonVars> CVs = GetCommonVars(s,false);
 
-        for(int i=0; i<numberOfPC; i++){
-                double PC_pt = sqrt(PC_Px[i]*PC_Px[i] + PC_Py[i] * PC_Py[i]);
-                FillTH1( id_pzHist, PC_Pz[i],w);
-                FillTH1( id_ptHist, PC_pt,w);
-                FillTH2( id_xyHist, PC_x[i], PC_y[i], w);
-                FillTH2( id_xywideHist, PC_x[i],PC_y[i], w);
-                double PC_r = sqrt(PC_x[i]*PC_x[i] + PC_y[i]*PC_y[i]);
-                double PC_phi = atan2(PC_y[i],PC_x[i]);
-                FillTH2(id_rphiHist,PC_r, PC_phi,w);
+    for(int i=0; i<numberOfPC; i++){
+        double PC_pt = sqrt(PC_Px[i]*PC_Px[i] + PC_Py[i] * PC_Py[i]);
+        FillTH1( id_pzHist, PC_Pz[i],w);
+        FillTH1( id_ptHist, PC_pt,w);
+        FillTH2( id_xyHist, PC_x[i], PC_y[i], w);
+        FillTH2( id_xywideHist, PC_x[i],PC_y[i], w);
+        double PC_r = sqrt(PC_x[i]*PC_x[i] + PC_y[i]*PC_y[i]);
+        double PC_phi = atan2(PC_y[i],PC_x[i]);
+        FillTH2(id_rphiHist,PC_r, PC_phi,w);
 		FillTH1(id_r25RHist , CVs[i].radius,w);
 		FillTH1(id_etaHist, CVs[i].etaphys, w);
-                FillTH2(id_ndof_pcReta, PV_ndof[0] ,CVs[i].etaphys,w);
-                FillTH2(id_ndof_pcRpt, PV_ndof[0], PC_pt,w);
+        FillTH2(id_ndof_pcReta, PV_ndof[0] ,CVs[i].etaphys,w);
+        FillTH2(id_ndof_pcRpt, PV_ndof[0], PC_pt,w);
+    }
 
-	
-        }
-
-        //calculate common variables
-//        std::vector<CommonVars> CVs = GetCommonVars(s,false);
-
-        //get cut mask (check numerator cuts)
-        std::vector<bool> cutmask = GetCutMask(s,CVs);
-        int npcCut=0;
-        for(int i=0; i<cutmask.size(); i++){
-                if(cutmask[i]){
-                        double PC_pt = sqrt(PC_Px[i]*PC_Px[i] + PC_Py[i] * PC_Py[i]);
-                        npcCut++;
-                        FillTH1(id_ptCutHist, PC_pt, w);
-                        FillTH1(id_pzCutHist, PC_Pz[i], w);
-                       // FillTH2(id_xywideCPCHist, CVs[i].x, CVs[i].y, w);
+    //get cut mask (check numerator cuts)
+    std::vector<bool> cutmask = GetCutMask(s,CVs);
+    int npcCut=0;
+    for(int i=0; i<cutmask.size(); i++){
+        if(cutmask[i]){
+            double PC_pt = sqrt(PC_Px[i]*PC_Px[i] + PC_Py[i] * PC_Py[i]);
+            npcCut++;
+            FillTH1(id_ptCutHist, PC_pt, w);
+            FillTH1(id_pzCutHist, PC_Pz[i], w);
+           // FillTH2(id_xywideCPCHist, CVs[i].x, CVs[i].y, w);
 			FillTH1(id_r25CHist , CVs[i].radius,w);
 			FillTH1(id_etaCutHist, CVs[i].etaphys, w);
-			
-                }
-
         }
-        FillTH1(id_numpccutHist, npcCut, w);
+    }
+    FillTH1(id_numpccutHist, npcCut, w);
 
-        //fill "hgn" conv stuff
+    //fill "hgn" conv stuff
 
-        hgn_pc HGN = pc_disambiguation(s,cutmask);
-        std::vector<bool> HGNmask(numberOfPC,false);
+    hgn_pc HGN = pc_disambiguation(s,cutmask);
+    std::vector<bool> HGNmask(numberOfPC,false);
 	double cutdL = 0.5;
 	//std::map<int, std::pair<int, double> > pcMatchColl = getPCMatchingColl(s,cutdL); // get matches for eff numerator
-        std::map<int, std::vector<double> > pcMatchColl = getPCMatchingColl(s,cutdL);
+    std::map<int, std::vector<double> > pcMatchColl = getPCMatchingColl(s,cutdL);
 	FillTH1( id_numHGNPCHist, HGN.vsel.size(), w);
-        int cidx;
+    int cidx;
 	double ptp;
 	//std::pair<int,double> match_criteria;
 	std::vector<double>  match_criteria;
 
 	int leadfound,subfound,leadlost,sublost,leadqual,subqual;
-        for(int i=0; i<HGN.vsel.size(); i++){
-                cidx = HGN.vsel[i];
-                HGNmask[cidx] = true;
-                double PC_pt = sqrt(PC_Px[cidx]*PC_Px[cidx] + PC_Py[cidx]*PC_Py[cidx]);
-                FillTH1( id_ptHCutHist, PC_pt, w);
-                FillTH1( id_pzHCutHist, PC_Pz[cidx], w);
-         //       FillTH2( id_xywideHGNPCHist, CVs[cidx].x, CVs[cidx].y, w);
-        	FillTH1(id_r25HHist , CVs[cidx].radius,w);
+    for(int i=0; i<HGN.vsel.size(); i++){
+        cidx = HGN.vsel[i];
+        HGNmask[cidx] = true;
+        double PC_pt = sqrt(PC_Px[cidx]*PC_Px[cidx] + PC_Py[cidx]*PC_Py[cidx]);
+        FillTH1( id_ptHCutHist, PC_pt, w);
+        FillTH1( id_pzHCutHist, PC_Pz[cidx], w);
+//       FillTH2( id_xywideHGNPCHist, CVs[cidx].x, CVs[cidx].y, w);
+    	FillTH1(id_r25HHist , CVs[cidx].radius,w);
 		FillTH1(id_r25Hist_b2p5, CVs[cidx].radius, w);
 		FillTH1(id_r25Hist_b2p5_nowt, CVs[cidx].radius, 1);
 		FillTH1(id_r25coarse, CVs[cidx].radius, w);
 		FillTH1(id_etaHGNHist, CVs[cidx].etaphys,w);
-                FillTH2(id_ndof_pcHeta, PV_ndof[0] ,CVs[cidx].etaphys,w);
-                FillTH2(id_ndof_pcHpt, PV_ndof[0], PC_pt,w);
+        FillTH2(id_ndof_pcHeta, PV_ndof[0] ,CVs[cidx].etaphys,w);
+        FillTH2(id_ndof_pcHpt, PV_ndof[0], PC_pt,w);
 
 		FillTH1(id_pc_chi2ndof,Conv_vtx_normalizedChi2[cidx], w); 
 		FillTH2(id_nchi2_r,CVs[cidx].radius,Conv_vtx_normalizedChi2[cidx], w);
  		FillTH2(id_nchi2_dr,CVs[cidx].rerr,Conv_vtx_normalizedChi2[cidx],w);
-
 		
 		FillTH1(id_rerrHGNHist,CVs[cidx].rerr ,w);
 		FillTH2(id_pt_rerr, CVs[cidx].rerr, PC_pt,w);
 		FillTH2(id_r_rerr, CVs[cidx].rerr, CVs[cidx].radius,w);
 
 		FillTH2(id_r_phi_p6, CVs[cidx].radius, CVs[cidx].phi , w);
-	
 		FillTH2(id_reta_pc, CVs[cidx].etaphys, CVs[cidx].radius, w);
 
 		if(CVs[cidx].radius < 8)
@@ -252,7 +240,6 @@ void histset::AnalyzeEntry(recosim& s){
 		match_criteria = pcMatchColl[cidx];
 		FillTH1(id_matchdR, match_criteria.at(1), w);
 
-		
 		if(match_criteria.at(0) ==0 && match_criteria.at(1) < cutdL){
 			//FillTH1(id_eRnum, CVs[cidx].radius, w);
 			//FillTH1(id_eRnum_b2p5, CVs[cidx].radius, w);
@@ -260,8 +247,8 @@ void histset::AnalyzeEntry(recosim& s){
 			FillTH1(id_eRnum_nowt, match_criteria.at(2), 1);
 			FillTH1(id_eRnum_b2p5, match_criteria.at(2), w);
 			FillTH1(id_eRnum_b2p5_nowt, match_criteria.at(2), 1);
-                	FillTH1(id_ePtnum,CVs[cidx].pt,w);
-                	FillTH1(id_etksumnum, sum_sumtkw, w);
+            FillTH1(id_ePtnum,CVs[cidx].pt,w);
+            FillTH1(id_etksumnum, sum_sumtkw, w);
 			FillTH2(id_effptr_num,match_criteria.at(2), CVs[cidx].pt, w);
 			FillTH2(id_effptr_num_nowt, match_criteria.at(2), CVs[cidx].pt, 1);
 			FillTH2(id_effrphiN, match_criteria.at(2), CVs[cidx].phi, w);	
@@ -278,13 +265,14 @@ void histset::AnalyzeEntry(recosim& s){
 				subfound=  PC_vTrack1_found[cidx];
 				sublost=   PC_vTrack1_lost[cidx];
 				subqual=   PC_vTrack1_quality[cidx];
-			}else{
+			}
+            else{
 				leadfound= PC_vTrack1_found[cidx];
-                                leadlost=  PC_vTrack1_lost[cidx];
-                                leadqual=  PC_vTrack1_quality[cidx];
-                                subfound=  PC_vTrack0_found[cidx];
-                                sublost=   PC_vTrack0_lost[cidx];
-                                subqual=   PC_vTrack0_quality[cidx];
+                leadlost=  PC_vTrack1_lost[cidx];
+                leadqual=  PC_vTrack1_quality[cidx];
+                subfound=  PC_vTrack0_found[cidx];
+                sublost=   PC_vTrack0_lost[cidx];
+                subqual=   PC_vTrack0_quality[cidx];
 			}	
 
 			//track analysis by pt matched
@@ -300,13 +288,11 @@ void histset::AnalyzeEntry(recosim& s){
 		if(match_criteria.at(0) !=0 || match_criteria.at(1) >= cutdL){
 			//fill bg eff radial stuff
 			FillTH1(id_eRnumf, CVs[cidx].radius, w);
-                        FillTH1(id_eRnumf_b2p5, CVs[cidx].radius, w);
-                        FillTH1(id_ePtnumf,CVs[cidx].pt,w);
-                        FillTH1(id_etksumnumf, sum_sumtkw, w);
-
+            FillTH1(id_eRnumf_b2p5, CVs[cidx].radius, w);
+            FillTH1(id_ePtnumf,CVs[cidx].pt,w);
+            FillTH1(id_etksumnumf, sum_sumtkw, w);
 		}
 	}
-
 
 /////////////////// Efficiency stuff
 	sim_pc SPC = GetSimPC(s);//need to apply cuts by hand
@@ -329,26 +315,23 @@ void histset::AnalyzeEntry(recosim& s){
 
 //////////////////////testing masking from early build
 
-        std::vector<bool> sim_mask4(nSimVtx,false);
+    std::vector<bool> sim_mask4(nSimVtx,false);
 
-//        std::vector<bool> _simmask;
-        //uncomment the one being used
+    double gpt,gpz,geta, tpt1,tpt2, costg, zpos;
+	int gidx,t1idx,t2idx;
+	double simr, sx,sy,simphi;
+	int vidx,t0idx;
+	double pt0,pt1,q0,simz, simthetag;
+    //vidx is index of pc on simvtx
+    //gidx, tXidx are indices of SimTrack that correspond to simvtx_i
+    for(int i=0; i<SPC.p14_key.size(); i++){
+        vidx= SPC.p14_key[i];
+        gidx= SPC.p14_g[vidx];
+        t0idx= SPC.p14_t1[vidx];
+        t1idx= SPC.p14_t2[vidx];
 
-	 double gpt,gpz,geta, tpt1,tpt2, costg, zpos;
-	 int gidx,t1idx,t2idx;
-	 double simr, sx,sy,simphi;
-	 int vidx,t0idx;
-	 double pt0,pt1,q0,simz, simthetag;
-        //vidx is index of pc on simvtx
-        //gidx, tXidx are index of SimTrack that correspond to simvtx_i
-        for(int i=0; i<SPC.p14_key.size(); i++){
-                vidx= SPC.p14_key[i];
-                gidx= SPC.p14_g[vidx];
-                t0idx= SPC.p14_t1[vidx];
-                t1idx= SPC.p14_t2[vidx];
-
-                pt0 = SimTrk_pt[t0idx];
-                pt1 = SimTrk_pt[t1idx];
+        pt0 = SimTrk_pt[t0idx];
+        pt1 = SimTrk_pt[t1idx];
                 //q0 = -( SimTrk_pdgId[t0idx]/abs(SimTrk_pdgId[t0idx]) );
                 //ptasym = (pt0-pt1)/(pt0+pt1);
                 //if (q0<0) ptasym = -ptasym;
@@ -358,11 +341,10 @@ void histset::AnalyzeEntry(recosim& s){
                 //FillTH1(id_xplusSPCHist, xplus, w);
                 //FillTH1(id_minTkPtSPCHist, std::min(pt0,pt1), w);
 
-                gpt = SimTrk_pt[gidx];
-                gpz = gpt* sinh( SimTrk_eta[gidx]);
-                simz = SimVtx_z[vidx];
-                simthetag = atan2(gpt,gpz);
-
+        gpt = SimTrk_pt[gidx];
+        gpz = gpt* sinh( SimTrk_eta[gidx]);
+        simz = SimVtx_z[vidx];
+        simthetag = atan2(gpt,gpz);
 
          //       if( xplus < 0.9 && xplus > 0.1 ) sim_mask3[vidx] = true;
            //     if( std::min(pt0,pt1) > 0.2 ) sim_mask2[vidx] = true;
@@ -379,9 +361,6 @@ void histset::AnalyzeEntry(recosim& s){
 
         }
 
-
-
-
 ///////////////////
 	
 	//loop over spc mask, put stuff that passes cuts into denom
@@ -394,37 +373,38 @@ void histset::AnalyzeEntry(recosim& s){
 		//debug section
 		if(SimVtx_processType[i] == 14){
 			sx = SimVtx_x[i];
-	                sy = SimVtx_y[i];
-        	        simr = sqrt(sx*sx + sy*sy);
+            sy = SimVtx_y[i];
+	        simr = sqrt(sx*sx + sy*sy);
 
 			FillTH1(id_debug1, simr, 1);
 			FillTH1(id_debug2, simr, 1);
 		}
 
 		//if( SPC.sim_mask[i] != 14 ) continue;
+// GWW Following means that sim photons need to pass above sim_mask4 cuts.		
 		if(sim_mask4[i]){	
 
-		gidx = SPC.p14_g[i];
-		t1idx = SPC.p14_t1[i];
-		t2idx = SPC.p14_t2[i];
+    		gidx = SPC.p14_g[i];
+	    	t1idx = SPC.p14_t1[i];
+	    	t2idx = SPC.p14_t2[i];
 		
-		gpt = SimTrk_pt[gidx];
-		tpt1 = SimTrk_pt[t1idx];
-		tpt2 = SimTrk_pt[t2idx];
+    		gpt = SimTrk_pt[gidx];
+	    	tpt1 = SimTrk_pt[t1idx];
+	    	tpt2 = SimTrk_pt[t2idx];
 
-		geta = SimTrk_eta[gidx];
-		gpz = gpt*sinh(geta);
-		costg = cos( atan2(gpt,gpz) );
-		simE = gpt*cosh(geta);
+	    	geta = SimTrk_eta[gidx];
+	    	gpz = gpt*sinh(geta);
+	    	costg = cos( atan2(gpt,gpz) );
+	    	simE = gpt*cosh(geta);
 
-		zpos = SimVtx_z[i];
-		sx = SimVtx_x[i];
-		sy = SimVtx_y[i];
-		simr = sqrt(sx*sx + sy*sy);
+    		zpos = SimVtx_z[i];
+	    	sx = SimVtx_x[i];
+	    	sy = SimVtx_y[i];
+	    	simr = sqrt(sx*sx + sy*sy);
 		
-		simphi=	atan2(sy,sx);
-		if (simphi < 0) { simphi += 2 * M_PI; }
-		//does it pass cuts? Require R<25 -- currently looking at context central bpix only
+	    	simphi=	atan2(sy,sx);
+	    	if (simphi < 0) { simphi += 2 * M_PI; }
+	// does it pass cuts? Require R<25 -- currently looking at context central bpix only
 	//	if( abs(zpos) < GV.ZCUT && abs(costg) < GV.COSTCUT && tpt1 > GV.MINPT && tpt2 > GV.MINPT && simr<25  ){
 			FillTH1(id_eRden, simr, w);
 			FillTH1(id_eRden_b2p5, simr, w);
@@ -441,9 +421,9 @@ void histset::AnalyzeEntry(recosim& s){
 
 			FillTH2(id_reta_effD, geta, simr, w);
 			FillTH2(id_reta_effD_nowt, geta, simr, 1);
-//		}
-		}//end mask4 check	
-	}
+		} //end mask4 check	
+	} // end of loop over all SimVtxs
+	
 ///fresh flux plot stuff
 //
 	std::vector<int> gidxlist =  getSimpleGidxList(s);
@@ -459,7 +439,6 @@ void histset::AnalyzeEntry(recosim& s){
 	int nbinsx;
 	auto gfluxhist = TH1Manager.at(id_gflux)->Get();
         
-
 	nbinsx = gfluxhist->GetNbinsX();
 	for(int i=1; i<nbinsx; i++){
 		rbinedge.push_back( gfluxhist->GetBinCenter(i) + (gfluxhist->GetBinWidth(i)/2.) );
@@ -478,17 +457,16 @@ void histset::AnalyzeEntry(recosim& s){
 		//collect the endpoints for every valid photon
 		g_endpoints = getGEndpoints(s, gidxlist[i]);
 
-
 		//if photon origin is outside of viewing range dont bother with it
 		Sx = g_endpoints.first[0];
                 Sy = g_endpoints.first[1];
                 Sz = g_endpoints.first[2];
 
  		Rorigin = sqrt(Sx*Sx + Sy*Sy);
-                if(Rorigin > 25.) continue;
+        if(Rorigin > 25.) continue;
 
-		//coordinate geometry time
-		//first address only candidates that have valid endpoints
+		// coordinate geometry time
+		// first address only candidates that have valid endpoints
 		if( g_endpoints.second[0] != -9999 && g_endpoints.second[1] != -9999 && g_endpoints.second[2] != -9999 ){
 		
 			Ex = g_endpoints.second[0];
@@ -496,21 +474,21 @@ void histset::AnalyzeEntry(recosim& s){
 			Ez = g_endpoints.second[2];
 
 			Rfinal = sqrt(Ex*Ex + Ey*Ey);
-	                tdrift = (GV.ZCUT - Sz)/(Ez - Sz);
-        	        xdrift = Sx + tdrift*(Ex - Sx);
-               		ydrift = Sy + tdrift*(Ey - Sy);
-                	Rdrift = sqrt( xdrift*xdrift + ydrift*ydrift );
+            tdrift = (GV.ZCUT - Sz)/(Ez - Sz);
+	        xdrift = Sx + tdrift*(Ex - Sx);
+       		ydrift = Sy + tdrift*(Ey - Sy);
+        	Rdrift = sqrt( xdrift*xdrift + ydrift*ydrift );
 
-		    }//end valid endpoint check
-		   else{
+	    } // end valid endpoint check
+		else{
 			//std::cout<<"No valid endpoint!! -- projecting arbitrary endpoint from origin and momentum vector\n"; 
-			//calculate Ex,Ex,Ez through scaling momentum
+			// calculate Ex,Ex,Ez through scaling momentum
 			Rdrift = getDriftFromPxPyPz(s, gidxlist[i] );
 			Rfinal = 25.1; //set rfinal just outside of R "viewing range" because it'll pass through everything if it doesnt drift out in z
-			}
+		}
 
 		//std::cout<<"photon Rfinal="<<Rfinal<<" Rdrift="<<Rdrift<<std::endl;
-		//if Rdrift is less than conversion point, then we drifted out of z .. so set rfinal=rdrift
+		// if Rdrift is less than conversion point, then we drifted out of z .. so set rfinal=rdrift
 		if( Rdrift < Rfinal ) Rfinal = Rdrift;
 	 	g_eta_physics = SimTrk_eta.At( gidxlist[i] );
 		FillTH1(id_gflux_eta, g_eta_physics, w);
@@ -518,7 +496,7 @@ void histset::AnalyzeEntry(recosim& s){
 //		gpt_forcut = SimTrk_pt.At(gidxlist[i] );
 		gE = SimTrk_pt.At(gidxlist[i])*cosh( SimTrk_eta.At(gidxlist[i]) );
 //		if( gpt_forcut < 1.0) continue;	
-			//fill every bin up to the point of conversion or drift	
+        //fill every bin up to the point of conversion or drift	
 		for(int j=0; j<rbinedge.size(); j++){
 			if( Rfinal >= rbinedge.at(j) ){
 				FillTH1(id_gflux, rbincenter.at(j) , w);
@@ -530,10 +508,8 @@ void histset::AnalyzeEntry(recosim& s){
 			else{
 				break;
 			}
-		}//end bin edge loop					
-
-
-	}//end gidxlist loop
+		} // end bin edge loop					
+	} // end gidxlist loop
 	
-}  // End of sub-program
+} // End of sub-program
 #endif
