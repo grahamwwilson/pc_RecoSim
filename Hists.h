@@ -43,8 +43,8 @@ void histset::init(){
     TH1Manager.at(id_sumtksum_rhi) = new MyTH1D("sumtksum_rhi","sum of tk sum with r>bpix2",50,0.5,50.5);
  
     //efficiency hists
-    const Int_t NBINS = 5;
-   	Double_t edges[NBINS + 1] = {1.0, 5.0, 9.0, 13.5, 18.0, 25.0}; //custom radial bins 
+    const Int_t NBINS = 6;
+   	Double_t edges[NBINS + 1] = {0.0, 2.5, 5.0, 9.0, 13.5, 18.0, 25.0}; //custom radial bins 
     TH1Manager.at(id_eRden) = new MyTH1D("eRden","eff R denominator",NBINS,edges);
     TH1Manager.at(id_eRden_nowt) = new MyTH1D("eRden_nowt","eff R denominator unweighted",NBINS,edges);
     TH1Manager.at(id_eRden_b2p5) = new MyTH1D("eRden_b2p5","eff R denominator b2p5",customNbins,0,25);
@@ -59,7 +59,7 @@ void histset::init(){
    
     TH1Manager.at(id_matchdR) = new MyTH1D("matchdR","dL dist of matches",20,0,2);
     
-	Double_t edges2[NBINS + 1] = {1.0, 5.0, 9.0, 13.5, 18.0, 25.0};
+	Double_t edges2[NBINS + 1] = {0.0, 2.5, 5.0, 9.0, 13.5, 18.0, 25.0};
     TH1Manager.at(id_eRnum) = new MyTH1D("eRnum","eff R numerator",NBINS,edges2);
     TH1Manager.at(id_eRnum_nowt) = new MyTH1D("eRnum_nowt","eff R numerator unweighted",NBINS,edges2);
 
@@ -71,8 +71,7 @@ void histset::init(){
     TH1Manager.at(id_etksumnum) = new MyTH1D("etksumnum","eff ntk numerator",12,8,20);
 
 	//fakes
- 	//const Int_t NBINS = 5;
-	Double_t edges3[NBINS + 1] = {1.0, 5.0, 9.0, 13.5, 18.0, 25.0};
+	Double_t edges3[NBINS + 1] = {0.0, 2.5, 5.0, 9.0, 13.5, 18.0, 25.0};
     TH1Manager.at(id_eRnumf) = new MyTH1D("eRnumf","eff R numerator",NBINS,edges3);
     TH1Manager.at(id_eRnumf_b2p5) = new MyTH1D("eRnumf_b2p5","eff R numerator b2p5",50,0,25);
     TH1Manager.at(id_ePtnumf) = new MyTH1D("ePtnumf","eff Pt numerator",10,0,5);
