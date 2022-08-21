@@ -474,7 +474,7 @@ struct GlobalValues{
     const double MINGPT = 0.4;
  //   const double MINPT = 0.5;
 //    const double MINGPT = 1.0;
-    const double CENTRALETA = 0.7;
+    const double ETACUT = 1.25;
 
     const double MASS_ELECTRON = 0.5109989461e-3;
     const double MASS_PION = 139.57061e-3;
@@ -674,11 +674,7 @@ std::vector<CommonVars> GetCommonVars(recosim& s, bool isRealData){//pass in boo
         double xplus = (1.0 + ptasym)/2.0;
         CVi.xplus = xplus;
 
-
-
 	pc_comm[i] = CVi;
-
-
 
     }//end loop over nconvs
 
@@ -765,7 +761,6 @@ std::pair<std::vector<double>, std::vector<double> > getGEndpoints(recosim& s, i
 }
 ///////////////////////////////////new photon function
 /*double getPhotonRend(recosim&s, int gidx){
- 
 	auto& SimTrk_simvtx_Idx  = s.SimTrk_simvtx_Idx;
         double sx,sy,sz,ex,ey,ez;
         int svidx = SimTrk_simvtx_Idx[gidx];//use track id to get origin
@@ -778,10 +773,8 @@ std::pair<std::vector<double>, std::vector<double> > getGEndpoints(recosim& s, i
         sz = SimVtx_z[svidx];
 	auto& SimTrk_trackId = s.SimTrk_trackId;
         int gtid = SimTrk_trackId[gidx];
-	
-
-
 }*/
+
 std::vector<int> getSimpleGidxList( recosim& s){
 //find all sim photons 
 
@@ -808,10 +801,13 @@ std::vector<int> getSimpleGidxList( recosim& s){
             geta = SimTrk_eta[i];
             gpz = gpt*sinh(geta);
             costg = cos( atan2(gpt,gpz) );
-			// it's a photon but does it pass cuts (check kinematics, if it passes check origin)
-			if(abs(costg) < GV.COSTCUT && gpt > GV.MINPT*2.){
+			// it's a photon but does it pass cuts (check kinematics and if it passes check origin)
+			if(abs(costg) < GV.COSTCUT && gpt > GV.MINGPT){
 				// we passed some cuts now check origin
 				svidx = SimTrk_simvtx_Idx[i];
+// GWW. The corresponding vertex is the vertex of the photon origin. 
+// NOT the photon interaction vertex.
+// So the appropriate cuts for the photon origin may well be different than those applied to the PC vertex (such as ZCUT).
                 Sz = SimVtx_z[svidx]; 
 								
 				if(abs(Sz) < GV.ZCUT){
@@ -984,9 +980,9 @@ std::vector<std::pair<int,int> > getGParentColl(recosim& s){
 	return Gcoll;
 
 }
-//std::vector<std::pair<int,double> > getPCMatchingColl(recosim& s, double cutdL){ //try to match all reco pc
-//std::map<int, std::pair<int,double> > getPCMatchingColl(recosim& s, double cutdL){
-std::map<int, std::vector<double> > getPCMatchingColl(recosim& s, double cutdL){
+
+std::map<int, std::vector<double> > getPCMatchingColl(recosim& s, double cutdL){ //try to match all reco pc
+
 //mindL is the minimum to be matched
 //loop svtx , label all reco convs
 //0= matched , nearest dR
@@ -995,7 +991,6 @@ std::map<int, std::vector<double> > getPCMatchingColl(recosim& s, double cutdL){
 //
 ///
 //the vector elements are (match flag, dL, simR .... sim parent track id)
-	//std::map< int, std::pair<int,double> > pcmap{};
 	std::map<int, std::vector<double> > pcmap{};
 	auto& SimVtx_processType = s.SimVtx_processType;
 	int nSimVtx = (s.SimVtx_processType).GetSize();
@@ -1003,32 +998,28 @@ std::map<int, std::vector<double> > getPCMatchingColl(recosim& s, double cutdL){
 	auto& PC_y = s.Conv_vtx_Y;
 	auto& PC_z = s.Conv_vtx_Z;
 	int npc = PC_x.GetSize();
-	auto& SimVtx_x = s.SimVtx_x;
-    	auto& SimVtx_y = s.SimVtx_y;
-    	auto& SimVtx_z = s.SimVtx_z;		
+	auto& SimVtx_x = s.SimVtx_x;	
+	auto& SimVtx_y = s.SimVtx_y;
+	auto& SimVtx_z = s.SimVtx_z;		
+    auto& SimVtx_simtrk_parent_tid = s.SimVtx_simtrk_parent_tid;	
 
-        auto& SimVtx_simtrk_parent_tid = s.SimVtx_simtrk_parent_tid;
-
-		
-
-		double mindL,dL;
-		double matchType;
-		double sx,sy,sz;
-		double cx,cy,cz;
-		double sR;
-		int tid;
+	double mindL,dL;
+	double matchType;
+	double sx,sy,sz;
+	double cx,cy,cz;
+	double sR;
+	int tid;
 	for(int i=0; i<npc; i++){
 		mindL = 999999;
 		matchType= -1;
 		tid=-1;		
 		cx = PC_x[i];
-                cy = PC_y[i];
-                cz = PC_z[i];
+        cy = PC_y[i];
+        cz = PC_z[i];
 		for(int j=0; j<nSimVtx; j++){
 			sx = SimVtx_x[j];
-                        sy = SimVtx_y[j];
-                        sz = SimVtx_z[j];
-						
+            sy = SimVtx_y[j];
+            sz = SimVtx_z[j];				
 			dL = sqrt( (sx-cx)*(sx-cx) + (sy-cy)*(sy-cy) + (sz-cz)*(sz-cz) );
 			if( dL < mindL ){
 				mindL = dL;
@@ -1041,19 +1032,15 @@ std::map<int, std::vector<double> > getPCMatchingColl(recosim& s, double cutdL){
 					 matchType=1;
 					sR = sqrt(sx*sx + sy*sy);
 					tid = SimVtx_simtrk_parent_tid[j];
-				}else{
+				}
+                else{
 					matchType =2;
 					sR=-1.;
 					tid=-1;
-
-				}
-				
+				}				
 			}// end dL check
 		}//end simvtx loop
-		//std::pair<int,double> pcmatch{};
 		std::vector<double> pcmatch(4);
-		//pcmatch.first = matchType;
-		//pcmatch.second = mindL;
 		pcmatch.at(0) = (double) matchType;
 		pcmatch.at(1) = mindL;
 		pcmatch.at(2) = sR;
@@ -1070,42 +1057,39 @@ std::map<int, std::vector<double> > getPCMatchingColl(recosim& s, double cutdL){
 //
 std::vector<bool> GetCutMask(recosim& s, std::vector<CommonVars> cv ){
 
-  auto& PC_x = s.Conv_vtx_X;
-  auto& PC_vTrack0_nBefore = s.Conv_nHitsBeforeVtx_Tk0;
-  auto& PC_vTrack1_nBefore = s.Conv_nHitsBeforeVtx_Tk1;
+    auto& PC_x = s.Conv_vtx_X;
+    auto& PC_vTrack0_nBefore = s.Conv_nHitsBeforeVtx_Tk0;
+    auto& PC_vTrack1_nBefore = s.Conv_nHitsBeforeVtx_Tk1;
 
-  std::vector<bool> cutmask(PC_x.GetSize());
-  double rerr,z,theta,fitprob,nBefore0,nBefore1;
+    std::vector<bool> cutmask(PC_x.GetSize());
+    double rerr,z,theta,fitprob,nBefore0,nBefore1;
  // double PT1,PT2;
-   double gPX,gPY,gPT,geta;
+    double gPX,gPY,gPT,geta;
   //updated min trk pt requirement to reconstructed photon pt
 
-  for(int i=0; i<cutmask.size(); i++){
+    for(int i=0; i<cutmask.size(); i++){
         rerr = cv[i].rerr;
         z = cv[i].z;
         theta = cv[i].theta;
         fitprob = cv[i].pfit;
         nBefore0 = PC_vTrack0_nBefore[i];
         nBefore1 = PC_vTrack1_nBefore[i];
-//	PT1 = std::sqrt(cv[i].px0p*cv[i].px0p + cv[i].py0p*cv[i].py0p);
-//        PT2 = std::sqrt(cv[i].px1p*cv[i].px1p + cv[i].py1p*cv[i].py1p);
-	gPX= cv[i].px0p + cv[i].px1p;
-	gPY= cv[i].py0p + cv[i].py1p;
-	gPT= std::sqrt( gPX*gPX + gPY*gPY );
-	geta= cv[i].etaphys;
-//	std::cout<< rerr <<" "<< abs(z)<<" "<<abs(cos(theta))<<" "<<fitprob<<" "<<std::max(nBefore0,nBefore1)<<std::endl;
-//        if( rerr < GV.RERRCUT && abs(z) < GV.ZCUT && abs(cos(theta)) < GV.COSTCUT && fitprob > GV.FITPROBCUT && std::max(nBefore0,nBefore1)==0 && PT1 > GV.MINPT && PT2 > GV.MINPT){
-//        if( rerr < GV.RERRCUT && abs(z) < GV.ZCUT && abs(cos(theta)) < GV.COSTCUT && fitprob > GV.FITPROBCUT && std::max(nBefore0,nBefore1)==0 && gPT > GV.MINGPT && abs(geta) < GV.CENTRALETA){
-
-// Remove superfluous eta cut
-     	if(rerr < GV.RERRCUT && abs(z) < GV.ZCUT && abs(cos(theta)) < GV.COSTCUT && fitprob > GV.FITPROBCUT && std::max(nBefore0,nBefore1)==0 && gPT > GV.MINGPT){      
-                cutmask[i] = true;
+//	    PT1 = std::sqrt(cv[i].px0p*cv[i].px0p + cv[i].py0p*cv[i].py0p);
+//      PT2 = std::sqrt(cv[i].px1p*cv[i].px1p + cv[i].py1p*cv[i].py1p);
+     	gPX= cv[i].px0p + cv[i].px1p;
+    	gPY= cv[i].py0p + cv[i].py1p;
+    	gPT= std::sqrt( gPX*gPX + gPY*gPY );
+    	geta= cv[i].etaphys;
+    	
+// Reconstructed photon conversion cuts including additional potentially more restrictive eta_physics cut.    	
+        if( rerr < GV.RERRCUT && abs(z) < GV.ZCUT && abs(cos(theta)) < GV.COSTCUT && fitprob > GV.FITPROBCUT 
+            && std::max(nBefore0,nBefore1)==0 && gPT > GV.MINGPT && abs(geta) < GV.ETACUT){
+            cutmask[i] = true;
         }
         else{
-                cutmask[i] = false;
+            cutmask[i] = false;
         }
-   }
-  return cutmask;      
-
+    }
+    return cutmask; 
 }
 
