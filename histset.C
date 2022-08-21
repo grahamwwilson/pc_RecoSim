@@ -324,7 +324,7 @@ void histset::AnalyzeEntry(recosim& s){
 	double pt0,pt1,q0,simz, simthetag;
     //vidx is index of pc on simvtx
     //gidx, tXidx are indices of SimTrack that correspond to simvtx_i
-    for(int i=0; i<SPC.p14_key.size(); i++){
+    for(int i=0; i<SPC.p14_key.size(); i++){   // Loop over sim_pc structs (corresponding to simulated photons that convert (process 14))
         vidx= SPC.p14_key[i];
         gidx= SPC.p14_g[vidx];
         t0idx= SPC.p14_t1[vidx];
@@ -332,34 +332,26 @@ void histset::AnalyzeEntry(recosim& s){
 
         pt0 = SimTrk_pt[t0idx];
         pt1 = SimTrk_pt[t1idx];
-                //q0 = -( SimTrk_pdgId[t0idx]/abs(SimTrk_pdgId[t0idx]) );
-                //ptasym = (pt0-pt1)/(pt0+pt1);
-                //if (q0<0) ptasym = -ptasym;
-                //xplus = (1.0 + ptasym)/2.0;
-                //xplus_v[i] = xplus;
-                //minpt_v[i] = std::min(pt0,pt1);
-                //FillTH1(id_xplusSPCHist, xplus, w);
-                //FillTH1(id_minTkPtSPCHist, std::min(pt0,pt1), w);
+        //q0 = -( SimTrk_pdgId[t0idx]/abs(SimTrk_pdgId[t0idx]) );
+        //ptasym = (pt0-pt1)/(pt0+pt1);
+        //if (q0<0) ptasym = -ptasym;
+        //xplus = (1.0 + ptasym)/2.0;
+        //xplus_v[i] = xplus;
+        //minpt_v[i] = std::min(pt0,pt1);
+        //FillTH1(id_xplusSPCHist, xplus, w);
+        //FillTH1(id_minTkPtSPCHist, std::min(pt0,pt1), w);
 
         gpt = SimTrk_pt[gidx];
         gpz = gpt* sinh( SimTrk_eta[gidx]);
         simz = SimVtx_z[vidx];
         simthetag = atan2(gpt,gpz);
 
-         //       if( xplus < 0.9 && xplus > 0.1 ) sim_mask3[vidx] = true;
-           //     if( std::min(pt0,pt1) > 0.2 ) sim_mask2[vidx] = true;
-                //if( std::min(pt0,pt1) > 0.2 && abs(simz) <GV.ZCUT && abs(cos(simthetag))<GV.COSTCUT ) sim_mask4[vidx] = true;
-//              if( std::min(pt0,pt1) > 0.2 && abs(simz) <GV.ZCUT && abs(cos(simthetag))<GV.COSTCUT && gpt>3) sim_mask4[vidx] = true;  /////REMember to change (for pt>5 run)   
-//		if( abs(simz) <GV.ZCUT && abs(cos(simthetag))<GV.COSTCUT && gpt>0.4  && abs(SimTrk_eta[gidx]) < 0.1  ) sim_mask4[vidx] = true;// changing this for graham
-		if( abs(simz) <GV.ZCUT && abs(cos(simthetag))<GV.COSTCUT && gpt>0.4 && abs(SimTrk_eta[gidx]) < 0.1 ) sim_mask4[vidx] = true;
-	//	if( abs(simz) <GV.ZCUT && abs(cos(simthetag))<GV.COSTCUT && gpt>1.0 && abs(SimTrk_eta[gidx]) < 0.1 ) sim_mask4[vidx] = true;          
-      //if( _simmask[vidx] == true ){
-                //    FillTH1(id_ptden1, gpt, w);
-                //    FillTH1(id_xpden1, xplus, w);
-                //    FillTH1(id_minTkden1, std::min(pt0,pt1), w)
-        //      } 
+// Does this sim_pc satisfy appropriate kinematic/geometrical cuts 
+// for PC reconstruction such that the reconstruction efficiency will make some sense.
+// Shouldn't we also include a radial cut too??
+		if( abs(simz) < GV.ZCUT && abs(cos(simthetag)) < GV.COSTCUT && gpt > GV.MINGPT && abs(SimTrk_eta[gidx]) < GV.ETACUT ) sim_mask4[vidx] = true;
 
-        }
+    }
 
 ///////////////////
 	
@@ -444,14 +436,7 @@ void histset::AnalyzeEntry(recosim& s){
 		rbinedge.push_back( gfluxhist->GetBinCenter(i) + (gfluxhist->GetBinWidth(i)/2.) );
 		rbincenter.push_back(gfluxhist->GetBinCenter(i));
 	}
-
-	//debug what are bin edges?
-	//std::cout<<"edge\n";
-	//for(int i=0; i<rbinedge.size(); i++){
-	//	std::cout<<rbinedge.at(i)<<" ";
-	//}
-	//std::cout<<std::endl;
-	
+		
 	//loop over valid photons
 	for(int i=0; i< gidxlist.size(); i++){
 		//collect the endpoints for every valid photon
@@ -459,8 +444,8 @@ void histset::AnalyzeEntry(recosim& s){
 
 		//if photon origin is outside of viewing range dont bother with it
 		Sx = g_endpoints.first[0];
-                Sy = g_endpoints.first[1];
-                Sz = g_endpoints.first[2];
+        Sy = g_endpoints.first[1];
+        Sz = g_endpoints.first[2];
 
  		Rorigin = sqrt(Sx*Sx + Sy*Sy);
         if(Rorigin > 25.) continue;
@@ -500,8 +485,7 @@ void histset::AnalyzeEntry(recosim& s){
 		for(int j=0; j<rbinedge.size(); j++){
 			if( Rfinal >= rbinedge.at(j) ){
 				FillTH1(id_gflux, rbincenter.at(j) , w);
-				FillTH1(id_gflux_nowt, rbincenter.at(j), 1);
-				
+				FillTH1(id_gflux_nowt, rbincenter.at(j), 1);	
 				FillTH2(id_reta_ng, g_eta_physics, rbincenter.at(j), w);	
 				FillTH2(id_gfluxE, rbincenter.at(j), gE, w);	
 			}	
