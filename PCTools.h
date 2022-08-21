@@ -557,44 +557,44 @@ std::vector<CommonVars> GetCommonVars(recosim& s, bool isRealData){//pass in boo
 	pz = PC_Pz[i];
    	r = sqrt( (x-x0)*(x-x0) + (y-y0)*(y-y0) );
   	E = PC_E[i];
-        vxx = PC_vtx_sigmaxx[i];
-        vxy = PC_vtx_sigmaxy[i];
-        vyy = PC_vtx_sigmayy[i];
-        vzz = PC_vtx_sigmazz[i];	
+    vxx = PC_vtx_sigmaxx[i];
+    vxy = PC_vtx_sigmaxy[i];
+    vyy = PC_vtx_sigmayy[i];    
+    vzz = PC_vtx_sigmazz[i];	
    
 	phi = atan2(y-y0, x-x0);
-        if (phi < 0) { phi += 2 * M_PI; }
-        theta = atan2(pt,pz);
-        eta = -log(tan(theta/2.0));
-        rho  =  sqrt( (x-x0bp)*(x-x0bp) + (y-y0bp)*(y-y0bp)) ;
-        phip =  atan2(y-y0bp, x-x0bp);
-        rps = sqrt( (x-x0ps)*(x-x0ps) + (y-y0ps)*(y-y0ps) );
-        rnominal = sqrt( x*x + y*y );
-        vxx = PC_vtx_sigmaxx[i];
-        vxy = PC_vtx_sigmaxy[i];
-        vyy = PC_vtx_sigmayy[i];
-        vzz = PC_vtx_sigmazz[i];
-        cphi = cos(phi);
-        sphi = sin(phi);
+    if (phi < 0) { phi += 2 * M_PI; }
+    theta = atan2(pt,pz);
+    eta = -log(tan(theta/2.0));
+    rho  =  sqrt( (x-x0bp)*(x-x0bp) + (y-y0bp)*(y-y0bp)) ;
+    phip =  atan2(y-y0bp, x-x0bp);
+    rps = sqrt( (x-x0ps)*(x-x0ps) + (y-y0ps)*(y-y0ps) );
+    rnominal = sqrt( x*x + y*y );
+    vxx = PC_vtx_sigmaxx[i];
+    vxy = PC_vtx_sigmaxy[i];
+    vyy = PC_vtx_sigmayy[i];
+    vzz = PC_vtx_sigmazz[i];
+    cphi = cos(phi);
+    sphi = sin(phi);
 	// This is the correct one
-        varsum_r   = cphi*cphi*vxx + 2.0*sphi*cphi*vxy + sphi*sphi*vyy;
-        varsum_phi = sphi*sphi*vxx - 2.0*sphi*cphi*vxy + cphi*cphi*vyy;
-        rerr = sqrt(varsum_r);
-        phierr = sqrt(varsum_phi)/r;
-        zerr = sqrt(vzz);
-        fitprob = TMath::Prob(PC_vtx_chi2[i], 3);
+    varsum_r   = cphi*cphi*vxx + 2.0*sphi*cphi*vxy + sphi*sphi*vyy;
+    varsum_phi = sphi*sphi*vxx - 2.0*sphi*cphi*vxy + cphi*cphi*vyy;
+    rerr = sqrt(varsum_r);
+    phierr = sqrt(varsum_phi)/r;
+    zerr = sqrt(vzz);
+    fitprob = TMath::Prob(PC_vtx_chi2[i], 3);
 	
 	CVi.radius = r;
 	CVi.rerr= rerr;
 	CVi.pfit = fitprob;
 	CVi.phierr = phierr;
 	CVi.zerr = zerr;	
-        CVi.rps= rps;
+    CVi.rps= rps;
 	CVi.rho= rho;
 	CVi.phip = phip;
 	CVi.rnominal = rnominal;
 	CVi.phi = phi;
-        CVi.theta = theta;
+    CVi.theta = theta;
 	CVi.pt = pt;
 	CVi.E = E;
 	CVi.etaphys = eta;
@@ -603,76 +603,75 @@ std::vector<CommonVars> GetCommonVars(recosim& s, bool isRealData){//pass in boo
 	CVi.y = y;
 	CVi.z = z;
 
-        auto& Tk0_px = s.Conv_tracksPin_Px_Tk0;
-    	auto& Tk0_py = s.Conv_tracksPin_Py_Tk0;
-    	auto& Tk0_pz = s.Conv_tracksPin_Pz_Tk0;
-    	auto& Tk0_x  = s.Conv_tracksInnerPosition_X_Tk0;
-    	auto& Tk0_y  = s.Conv_tracksInnerPosition_Y_Tk0;
-    	auto& Tk0_z  = s.Conv_tracksInnerPosition_Z_Tk0;
+    auto& Tk0_px = s.Conv_tracksPin_Px_Tk0;
+	auto& Tk0_py = s.Conv_tracksPin_Py_Tk0;
+	auto& Tk0_pz = s.Conv_tracksPin_Pz_Tk0;
+	auto& Tk0_x  = s.Conv_tracksInnerPosition_X_Tk0;
+	auto& Tk0_y  = s.Conv_tracksInnerPosition_Y_Tk0;
+	auto& Tk0_z  = s.Conv_tracksInnerPosition_Z_Tk0;
 
-    	auto& Tk1_px = s.Conv_tracksPin_Px_Tk1;
-    	auto& Tk1_py = s.Conv_tracksPin_Py_Tk1;
-    	auto& Tk1_pz = s.Conv_tracksPin_Pz_Tk1;
-    	auto& Tk1_x  = s.Conv_tracksInnerPosition_X_Tk1;
-    	auto& Tk1_y  = s.Conv_tracksInnerPosition_Y_Tk1;
-    	auto& Tk1_z  = s.Conv_tracksInnerPosition_Z_Tk1;
+	auto& Tk1_px = s.Conv_tracksPin_Px_Tk1;
+	auto& Tk1_py = s.Conv_tracksPin_Py_Tk1;
+	auto& Tk1_pz = s.Conv_tracksPin_Pz_Tk1;
+	auto& Tk1_x  = s.Conv_tracksInnerPosition_X_Tk1;
+	auto& Tk1_y  = s.Conv_tracksInnerPosition_Y_Tk1;
+	auto& Tk1_z  = s.Conv_tracksInnerPosition_Z_Tk1;
 
-        auto& PC_vTrack0_charge = s.Conv_Tk0_charge;
-    	auto& PC_vTrack1_charge = s.Conv_Tk1_charge;
+    auto& PC_vTrack0_charge = s.Conv_Tk0_charge;
+	auto& PC_vTrack1_charge = s.Conv_Tk1_charge;
 
 	//// Swim each track from inner hit to the conversion vertex - see convsel.C code
-        pt0 = sqrt(Tk0_px[i]*Tk0_px[i] + Tk0_py[i]*Tk0_py[i]);
-        tanl0 = Tk0_pz[i]/pt0;
-        phi0 = atan2(Tk0_py[i],Tk0_px[i]);
-        qR0 = double(PC_vTrack0_charge[i])*100.0*pt0/(0.2998*3.80); //in cm
-        double A0 =  2.0*qR0*( (Tk0_y[i]-y)*cos(phi0) - (Tk0_x[i]-x)*sin(phi0) - qR0 );
-        double B0 = -2.0*qR0*( (Tk0_y[i]-y)*sin(phi0) + (Tk0_x[i]-x)*cos(phi0) );
-        double alp0 = atan2(B0/A0,1.0);
-        px0p = pt0*cos(phi0 + alp0);
-        py0p = pt0*sin(phi0 + alp0);
-        pz0p = Tk0_pz[i];
+    pt0 = sqrt(Tk0_px[i]*Tk0_px[i] + Tk0_py[i]*Tk0_py[i]);
+    tanl0 = Tk0_pz[i]/pt0;
+    phi0 = atan2(Tk0_py[i],Tk0_px[i]);
+    qR0 = double(PC_vTrack0_charge[i])*100.0*pt0/(0.2998*3.80); //in cm
+    double A0 =  2.0*qR0*( (Tk0_y[i]-y)*cos(phi0) - (Tk0_x[i]-x)*sin(phi0) - qR0 );
+    double B0 = -2.0*qR0*( (Tk0_y[i]-y)*sin(phi0) + (Tk0_x[i]-x)*cos(phi0) );
+    double alp0 = atan2(B0/A0,1.0);
+    px0p = pt0*cos(phi0 + alp0);
+    py0p = pt0*sin(phi0 + alp0);
+    pz0p = Tk0_pz[i];
 	// Also swim the track position
-        x0p = Tk0_x[i] + qR0*( (1.0-cos(alp0))*sin(phi0) - sin(alp0)*cos(phi0) );
-        y0p = Tk0_y[i] - qR0*( (1.0-cos(alp0))*cos(phi0) + sin(alp0)*sin(phi0) );
-        z0p = Tk0_z[i] - qR0*tanl0*alp0;
+    x0p = Tk0_x[i] + qR0*( (1.0-cos(alp0))*sin(phi0) - sin(alp0)*cos(phi0) );
+    y0p = Tk0_y[i] - qR0*( (1.0-cos(alp0))*cos(phi0) + sin(alp0)*sin(phi0) );
+    z0p = Tk0_z[i] - qR0*tanl0*alp0;
        
-
 	// Swim each track from inner hit to the conversion vertex - see convsel.C code
-        pt1 = sqrt(Tk1_px[i]*Tk1_px[i] + Tk1_py[i]*Tk1_py[i]);
-        tanl1 = Tk1_pz[i]/pt1;
-        phi1 = atan2(Tk1_py[i],Tk1_px[i]);
-        qR1 = double(PC_vTrack1_charge[i])*100.0*pt1/(0.2998*3.80); //in cm
-        double A1 =  2.0*qR1*( (Tk1_y[i]-y)*cos(phi1) - (Tk1_x[i]-x)*sin(phi1) - qR1 );
-        double B1 = -2.0*qR1*( (Tk1_y[i]-y)*sin(phi1) + (Tk1_x[i]-x)*cos(phi1) );
-        double alp1 = atan2(B1/A1,1.0);
-        px1p = pt1*cos(phi1 + alp1);
-        py1p = pt1*sin(phi1 + alp1);
-        pz1p = Tk1_pz[i];
+    pt1 = sqrt(Tk1_px[i]*Tk1_px[i] + Tk1_py[i]*Tk1_py[i]);
+    tanl1 = Tk1_pz[i]/pt1;
+    phi1 = atan2(Tk1_py[i],Tk1_px[i]);
+    qR1 = double(PC_vTrack1_charge[i])*100.0*pt1/(0.2998*3.80); //in cm
+    double A1 =  2.0*qR1*( (Tk1_y[i]-y)*cos(phi1) - (Tk1_x[i]-x)*sin(phi1) - qR1 );
+    double B1 = -2.0*qR1*( (Tk1_y[i]-y)*sin(phi1) + (Tk1_x[i]-x)*cos(phi1) );
+    double alp1 = atan2(B1/A1,1.0);
+    px1p = pt1*cos(phi1 + alp1);
+    py1p = pt1*sin(phi1 + alp1);
+    pz1p = Tk1_pz[i];
 	// Also swim the track position
-        x1p = Tk1_x[i] + qR1*( (1.0-cos(alp1))*sin(phi1) - sin(alp1)*cos(phi1) );
-        y1p = Tk1_y[i] - qR1*( (1.0-cos(alp1))*cos(phi1) + sin(alp1)*sin(phi1) );
-        z1p = Tk1_z[i] - qR1*tanl1*alp1;
+    x1p = Tk1_x[i] + qR1*( (1.0-cos(alp1))*sin(phi1) - sin(alp1)*cos(phi1) );
+    y1p = Tk1_y[i] - qR1*( (1.0-cos(alp1))*cos(phi1) + sin(alp1)*sin(phi1) );
+    z1p = Tk1_z[i] - qR1*tanl1*alp1;
         
 	CVi.q0 = PC_vTrack0_charge[i];
-        CVi.q1 = PC_vTrack1_charge[i];
-        CVi.px0p = px0p;
+    CVi.q1 = PC_vTrack1_charge[i];
+    CVi.px0p = px0p;
 	CVi.py0p = py0p;
-        CVi.pz0p = pz0p;
+    CVi.pz0p = pz0p;
 	CVi.x0p = x0p;
   	CVi.y0p = y0p;
 	CVi.z0p = z0p;
 
 	CVi.px1p = px1p;
-        CVi.py1p = py1p;
-        CVi.pz1p = pz1p;
-        CVi.x1p = x1p;
-        CVi.y1p = y1p;
-        CVi.z1p = z1p;
+    CVi.py1p = py1p;
+    CVi.pz1p = pz1p;
+    CVi.x1p = x1p;
+    CVi.y1p = y1p;
+    CVi.z1p = z1p;
 
 	double ptasym = (pt0-pt1)/(pt0+pt1);
-        if (q0<0) ptasym = -ptasym;
-        double xplus = (1.0 + ptasym)/2.0;
-        CVi.xplus = xplus;
+    if (q0<0) ptasym = -ptasym;
+    double xplus = (1.0 + ptasym)/2.0;
+    CVi.xplus = xplus;
 
 	pc_comm[i] = CVi;
 
@@ -685,31 +684,31 @@ double getDriftFromPxPyPz( recosim& s, int gidx){
 	auto& SimTrk_simvtx_Idx = s.SimTrk_simvtx_Idx;
 	int svidx = SimTrk_simvtx_Idx[gidx];
 
-        auto& SimVtx_x = s.SimVtx_x;
-        auto& SimVtx_y = s.SimVtx_y;
-        auto& SimVtx_z = s.SimVtx_z;
+    auto& SimVtx_x = s.SimVtx_x;
+    auto& SimVtx_y = s.SimVtx_y;
+    auto& SimVtx_z = s.SimVtx_z;
 	double sx,sy,sz;
-        sx = SimVtx_x[svidx];
-        sy = SimVtx_y[svidx];
-        sz = SimVtx_z[svidx];
+    sx = SimVtx_x[svidx];
+    sy = SimVtx_y[svidx];
+    sz = SimVtx_z[svidx];
 
-        auto& SimTrk_pt = s.SimTrk_pt;
-        auto& SimTrk_eta = s.SimTrk_eta;
+    auto& SimTrk_pt = s.SimTrk_pt;
+    auto& SimTrk_eta = s.SimTrk_eta;
 	auto& SimTrk_phi = s.SimTrk_phi;
-        double gpt,geta,gphi,gpz,gpx,gpy;
+    double gpt,geta,gphi,gpz,gpx,gpy;
 
 
 	gpt = SimTrk_pt[gidx];
-        geta = SimTrk_eta[gidx];
-        gpz = gpt*sinh(geta);
+    geta = SimTrk_eta[gidx];
+    gpz = gpt*sinh(geta);
 	gpx = gpt*cos(gphi);
 	gpy = gpt*sin(gphi);
 
 	double tdrift, xdrift, ydrift, Rdrift;
 	tdrift = (GV.ZCUT - sz)/(gpz - sz);
-        xdrift = sx + tdrift*(gpx - sx);
-        ydrift = sy + tdrift*(gpy - sy);
-        Rdrift = sqrt( xdrift*xdrift + ydrift*ydrift );
+    xdrift = sx + tdrift*(gpx - sx);
+    ydrift = sy + tdrift*(gpy - sy);
+    Rdrift = sqrt( xdrift*xdrift + ydrift*ydrift );
 	
 	return Rdrift;
 
@@ -990,7 +989,7 @@ std::map<int, std::vector<double> > getPCMatchingColl(recosim& s, double cutdL){
 //2= unmatched, nearest dR
 //
 ///
-//the vector elements are (match flag, dL, simR .... sim parent track id)
+//the vector elements are (match flag, dL, simR, sim parent track id)
 	std::map<int, std::vector<double> > pcmap{};
 	auto& SimVtx_processType = s.SimVtx_processType;
 	int nSimVtx = (s.SimVtx_processType).GetSize();
@@ -1009,14 +1008,14 @@ std::map<int, std::vector<double> > getPCMatchingColl(recosim& s, double cutdL){
 	double cx,cy,cz;
 	double sR;
 	int tid;
-	for(int i=0; i<npc; i++){
+	for(int i=0; i<npc; i++){   // Loop over reco PC
 		mindL = 999999;
 		matchType= -1;
 		tid=-1;		
 		cx = PC_x[i];
         cy = PC_y[i];
         cz = PC_z[i];
-		for(int j=0; j<nSimVtx; j++){
+		for(int j=0; j<nSimVtx; j++){  // Loop over sim vertices
 			sx = SimVtx_x[j];
             sy = SimVtx_y[j];
             sz = SimVtx_z[j];				
@@ -1024,17 +1023,17 @@ std::map<int, std::vector<double> > getPCMatchingColl(recosim& s, double cutdL){
 			if( dL < mindL ){
 				mindL = dL;
 				if(SimVtx_processType[j] == 14 && mindL < cutdL){
-					 matchType=0;
-					 sR = sqrt(sx*sx + sy*sy);
-					 tid = SimVtx_simtrk_parent_tid[j];
+					matchType=0;  // Matched to true photon conversion
+					sR = sqrt(sx*sx + sy*sy);
+                    tid = SimVtx_simtrk_parent_tid[j];
 				}
 				else if(SimVtx_processType[j] != 14 && mindL < cutdL){
-					 matchType=1;
-					sR = sqrt(sx*sx + sy*sy);
+                    matchType=1;  // Matched to non photon conversion vertex (eg. NI)
+                    sR = sqrt(sx*sx + sy*sy);
 					tid = SimVtx_simtrk_parent_tid[j];
 				}
                 else{
-					matchType =2;
+					matchType =2; // Unmatched
 					sR=-1.;
 					tid=-1;
 				}				
