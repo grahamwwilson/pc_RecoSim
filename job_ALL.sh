@@ -5,7 +5,7 @@
 #SBATCH --mail-user=gwwilson@ku.edu     # Where to send mail	
 #SBATCH --ntasks=1                      # Run 1 task on one node
 #SBATCH --cpus-per-task=24              # Number of threads to use
-#SBATCH --mem=2gb                       # Job memory request
+#SBATCH --mem=8gb                       # Job memory request
 #SBATCH --time=0-06:00:00               # Time limit days-hrs:min:sec
 #SBATCH --output=conv2_%j.log           # Standard output and error log
 
