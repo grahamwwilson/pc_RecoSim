@@ -413,6 +413,8 @@ void histset::AnalyzeEntry(recosim& s){
 
 			FillTH2(id_reta_effD, geta, simr, w);
 			FillTH2(id_reta_effD_nowt, geta, simr, 1);
+			FillTH2(id_reta_effD_monobin, geta, simr, w);
+						
 		} //end mask4 check	
 	} // end of loop over all SimVtxs
 	

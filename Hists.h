@@ -143,6 +143,7 @@ void histset::init(){
     TH2Manager.at(id_reta_pc) = new MyTH2D("reta_pc", "reconstructed conversions r-eta;#eta;R",26,-1.3,1.3,NBINS,edges3);
     TH2Manager.at(id_reta_effN) = new MyTH2D("reta_effN", "eff numerator r-eta;#eta;R",26,-1.3,1.3,NBINS,edges3);
     TH2Manager.at(id_reta_effD) = new MyTH2D("reta_effD", "eff denominator r-eta;#eta;R",26,-1.3,1.3,NBINS,edges3);
+    TH2Manager.at(id_reta_effD_monobin) = new MyTH2D("reta_effD_monobin", "eff denominator r-eta;#eta;R",1,-1.3,1.3,NBINS,edges3);    
     TH2Manager.at(id_reta_effN_nowt) = new MyTH2D("reta_effN_nowt", "no wteff numerator r-eta;#eta;R",26,-1.3,1.3,NBINS,edges3);
     TH2Manager.at(id_reta_effD_nowt) = new MyTH2D("reta_effD_nowt", "no wt eff denominator r-eta;#eta;R",26,-1.3,1.3,NBINS,edges3);
     TH2Manager.at(id_reta_ng) = new MyTH2D("reta_ng","number of photons r-eta;#eta;R",26,-1.3,1.3,NBINS,edges3);
