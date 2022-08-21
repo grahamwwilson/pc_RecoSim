@@ -465,7 +465,8 @@ struct CommonVars{
 
 struct GlobalValues{
     const double RERRCUT = 0.25;
-    const double COSTCUT = 0.85;
+//    const double COSTCUT = 0.85;
+    const double COSTCUT = cos(2.0*atan(exp(-1.25)));
     const double ZCUT = 25.0;
     const double FITPROBCUT = 0.010;
     const double MASSCUT = 0.15;
