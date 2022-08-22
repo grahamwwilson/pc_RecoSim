@@ -1,0 +1,53 @@
+ 
+------------------------
+Results for |eta| < 0.70
+------------------------
+ 
+region:  BP
+nobs:    30524
+ngam:    18719557
+mbt:     0.2458
+Observed conversion probability in % 0.16305941427994264 +- 0.0009325471250140457  (  0.5719063380253753 )
+Corresponding to  0.20981892964626508 +- 0.0012009474185588568  radiation lengths in %  (  0.5723732461048872 )
+(RecoSIM/MBT ratio)  0.8536164753712981 +- 0.004885872329368823
+ 
+region:  BPIX1
+nobs:    189492
+ngam:    18647028
+mbt:     1.5203
+Observed conversion probability in % 1.016204834357518 +- 0.002322564948183239  (  0.22855283400139006 )
+Corresponding to  1.3132330003177144 +- 0.003016811921973014  radiation lengths in %  (  0.22972404144909148 )
+(RecoSIM/MBT ratio)  0.8637985925920637 +- 0.0019843530368828612
+ 
+region:  BPIX2
+nobs:    195393
+ngam:    18389727
+mbt:     1.5561
+Observed conversion probability in % 1.0625116947086815 +- 0.002390890348319191  (  0.22502249718528725 )
+Corresponding to  1.3733956992678478 +- 0.003107014266346588  radiation lengths in %  (  0.22622862937483537 )
+(RecoSIM/MBT ratio)  0.8825883293283515 +- 0.0019966674804617877
+ 
+region:  BPIX3
+nobs:    195789
+ngam:    18125168
+mbt:     1.563
+Observed conversion probability in % 1.0802051600294131 +- 0.002428028090519304  (  0.22477471691147916 )
+Corresponding to  1.3963908004091046 +- 0.003155839948057434  radiation lengths in %  (  0.22599976647890108 )
+(RecoSIM/MBT ratio)  0.8934042229104956 +- 0.002019091457490361
+ 
+region:  BPIX4
+nobs:    201955
+ngam:    17881366
+mbt:     1.6268
+Observed conversion probability in % 1.1294159517790754 +- 0.002498964935099543  (  0.2212617000108003 )
+Corresponding to  1.4603686537557257 +- 0.003249657061790533  radiation lengths in %  (  0.2225230631617008 )
+(RecoSIM/MBT ratio)  0.8976940335356071 +- 0.001997576261243259
+ 
+region:  Other
+nobs:    473562
+ngam:    17641702
+mbt:     3.967
+Observed conversion probability in % 2.684332838180806 +- 0.0038480377457131357  (  0.1433517368256383 )
+Corresponding to  3.4984530801628737 +- 0.005083947164853089  radiation lengths in %  (  0.14531986133186617 )
+(RecoSIM/MBT ratio)  0.881888853078617 +- 0.0012815596583950312
+ 

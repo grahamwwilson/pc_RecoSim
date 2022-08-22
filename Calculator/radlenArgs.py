@@ -9,7 +9,7 @@ def getArgs(argv=None):
     
     parser.add_argument("-r", "--region", type=str, default="BP", help="Radial region")      
     parser.add_argument("-n", "--nobs", type=int, default=2, help="Number of observed photon conversions")    
-    parser.add_argument("-d", "--ngam", type=float, default=2.0e6, help="Number of incident photons")
+    parser.add_argument("-d", "--ngam", type=int, default=100000, help="Number of incident photons")
     parser.add_argument("-m", "--mbt", type=float, default=1.0, help="MBT estimate of radiation lengths (in per cent)")    
   
     args=parser.parse_args(argv)
