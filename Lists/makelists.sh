@@ -6,7 +6,8 @@
 #
 
 jobfile=jobs.list
-masterlistfile="MinBias2018_Rsim_GWW_ALL.list"
+masterlist="MinBias2018_Rsim_GWW_ALL"
+masterlistfile=${masterlist}.list
 
 first=1
 last=83
@@ -16,7 +17,7 @@ do
    echo 'job: '$job
    echo 'first: '$first
    echo 'last:  '$last
-   outfile=${masterlistfile}-J-${job}
+   outfile=${masterlist}-J-${job}.list
    sed -n "${first},${last} p" ${masterlistfile} > ${outfile}
    let first+=83
    let last+=83
