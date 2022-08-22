@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=conv2                # Job name
 #SBATCH --partition=sixhour             # Partition Name (Required)
-#SBATCH --mail-type=FAIL,END            # Mail events (NONE, BEGIN, END, FAIL, ALL)
+#SBATCH --mail-type=ALL                 # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=gwwilson@ku.edu     # Where to send mail	
 #SBATCH --ntasks=1                      # Run 1 task on one node
 #SBATCH --cpus-per-task=12              # Number of threads to use
