@@ -474,7 +474,7 @@ struct GlobalValues{
     const double MINGPT = 0.4;
  //   const double MINPT = 0.5;
 //    const double MINGPT = 1.0;
-    const double ETACUT = 0.7;
+    const double ETACUT = 0.1;
 
     const double MASS_ELECTRON = 0.5109989461e-3;
     const double MASS_PION = 139.57061e-3;
