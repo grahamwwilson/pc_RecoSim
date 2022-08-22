@@ -3,3 +3,4 @@ compiledThreads
 *.o
 *.swp
 *.log
+__pycache__
