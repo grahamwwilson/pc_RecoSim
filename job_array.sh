@@ -8,14 +8,14 @@
 #SBATCH --mem=2gb                       # Job memory request
 #SBATCH --time=0-06:00:00               # Time limit days-hrs:min:sec
 #SBATCH --output=conv2_%j.log           # Standard output and error log
-#SBATCH --array=1-2                     # Job array
+#SBATCH --array=1-12                    # Job array
 
 echo 'SLURM_ARRY_TASK_ID: '$SLURM_ARRAY_TASK_ID
 
 LIST="MinBias2018_Rsim_GWW_ALL-J-"$SLURM_ARRAY_TASK_ID
 NUMFILES=0
 NTHREADS=12
-VERSION=1
+VERSION=2
 
 pwd
 hostname
