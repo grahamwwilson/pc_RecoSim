@@ -22,7 +22,7 @@ do
    mydir=MinBias2018_Rsim_GWW_ALL-J-${job}-0-12-V1
    ofile=" Outfile${job}.root"
    ln -s ${execdir}/${mydir}/Outfile.root ${ofile}
-   command+="${ofile}
+   command+="${ofile}"
 done
 
 echo ${command}
