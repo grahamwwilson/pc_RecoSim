@@ -2,11 +2,11 @@
 #
 # Collate jobs and add output histograms
 #
-# Need to source ROOT
+# Need to source ROOT for hadd step
 . ./setenv.sh
 
-mkdir Collating/Eta-0p7
-cd Collating/Eta-0p7
+mkdir Collating/Eta-0p1
+cd Collating/Eta-0p1
 
 execdir=../../pc_ExecutionDirectory
 jobfile=../../Lists/jobs.list
@@ -19,7 +19,7 @@ for job in $(cat ${jobfile})
 do
 # Make symbolic link in collation subdirectory
    echo 'job: '$job
-   mydir=MinBias2018_Rsim_GWW_ALL-J-${job}-0-12-V1
+   mydir=MinBias2018_Rsim_GWW_ALL-J-${job}-0-12-V2
    ofile=" Outfile${job}.root"
    ln -s ${execdir}/${mydir}/Outfile.root ${ofile}
    command+="${ofile}"
