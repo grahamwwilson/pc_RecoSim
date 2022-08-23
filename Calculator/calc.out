@@ -6,10 +6,10 @@ Results for |eta| < 0.70
 region:  BP
 nobs:    30524
 ngam:    18719557
-mbt:     0.2458
+mbt:     0.245801
 Observed conversion probability in % 0.16305941427994264 +- 0.0009325471250140457  (  0.5719063380253753 )
 Corresponding to  0.20981892964626508 +- 0.0012009474185588568  radiation lengths in %  (  0.5723732461048872 )
-(RecoSIM/MBT ratio)  0.8536164753712981 +- 0.004885872329368823
+(RecoSIM/MBT ratio)  0.8536130025763324 +- 0.004885852452019548
  
 region:  BPIX1
 nobs:    189492

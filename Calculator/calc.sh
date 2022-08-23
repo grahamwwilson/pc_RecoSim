@@ -10,7 +10,7 @@ echo ' '
 # Material budget tool numbers are with 'Realistic25ns13TeVEarly2018Collision' vertex smearing
 # and are as reported on slide 24 of updated slides of July 14th, 2022.
 
-python3 radlen.py -r "BP"    -n 30524  -d 18719557 -m 0.2458
+python3 radlen.py -r "BP"    -n 30524  -d 18719557 -m 0.245801  
 python3 radlen.py -r "BPIX1" -n 189492 -d 18647028 -m 1.5203
 python3 radlen.py -r "BPIX2" -n 195393 -d 18389727 -m 1.5561
 python3 radlen.py -r "BPIX3" -n 195789 -d 18125168 -m 1.5630
