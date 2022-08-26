@@ -11,6 +11,9 @@ recosim.o: recosim.C recosim.h
 
 hung.o: Hungarian.cpp Hungarian.h
 	g++ -c -pthread Hungarian.cpp `root-config --cflags --libs`
+	
+test: PairCrossSections.h testCrossSection.cpp
+	g++ -o testCrossSection testCrossSection.cpp
 
 clean:
 	rm *.o
