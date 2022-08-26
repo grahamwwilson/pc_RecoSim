@@ -16,56 +16,55 @@ using namespace std;
 // Y-S. Tsai equation 3.66 on p827 of 
 // Review of Modern Physics, Vol 46 (4) 1974 pp815-851.
 double Lrad(double dZ){
-   int Z;
-   double val;
-   const double ONETHIRD = 1.0/3.0;
+    int Z;
+    double val;
+    const double ONETHIRD = 1.0/3.0;
 
-   Z = int(dZ+0.5);
+    Z = int(dZ+0.5);
 
-   if(Z>=5){
-      val = log(184.15/(pow(dZ,ONETHIRD)));
-   }
-   else if(Z==1){
-      val = 5.31;
-   }
-   else if(Z==2){
-      val = 4.79;
-   }
-   else if(Z==3){
-       val = 4.74;
-   }
-   else if(Z==4){
-       val = 4.71;
-   }
-   return val;
+    if(Z>=5){
+        val = log(184.15/(pow(dZ,ONETHIRD)));
+    }
+    else if(Z==1){
+        val = 5.31;
+    }
+    else if(Z==2){
+        val = 4.79;
+    }
+    else if(Z==3){
+        val = 4.74;
+    }
+    else if(Z==4){
+        val = 4.71;
+    }
+    return val;
 }
 
 // Lradprime function used in the radiation length definition of 
 // Y-S. Tsai equation 3.66 on p827 of 
 // Review of Modern Physics, Vol 46 (4) 1974 pp815-851.
 double Lradprime(double dZ){
-   int Z;
-   double val;
-   const double TWOTHIRDS = 2.0/3.0;
+    int Z;
+    double val;
+    const double TWOTHIRDS = 2.0/3.0;
 
-   Z = int(dZ+0.5);
-
-   if(Z>=5){
-      val = log(1194.0/(pow(dZ,TWOTHIRDS)));
-   }
-   else if(Z==1){
-      val = 6.144;
-   }
-   else if(Z==2){
-      val = 5.621;
-   }
-   else if(Z==3){
-       val = 5.805;
-   }
-   else if(Z==4){
-       val = 5.924;
-   }
-   return val;
+    Z = int(dZ+0.5);
+    if(Z>=5){
+        val = log(1194.0/(pow(dZ,TWOTHIRDS)));
+    }
+    else if(Z==1){
+        val = 6.144;
+    }
+    else if(Z==2){
+        val = 5.621;
+    }
+    else if(Z==3){
+        val = 5.805;
+    }
+    else if(Z==4){
+        val = 5.924;
+    }
+    return val;
 }
 
 double RadiationLengthConstant(){
