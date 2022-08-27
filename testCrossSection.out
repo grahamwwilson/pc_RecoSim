@@ -1,0 +1,164 @@
+ 
+GEANT4 total pair-production cross-section estimates vs (E,Z)
+These use the 18-parameter parametrization by L. Urban encoded in G4BetheHeitler.cpp
+based on least-squares fits to the data of Hubbell, Gimm, Overbo (1980).
+The range of validity is 1.5MeV < E < 100GeV and 1 <= Z <= 100
+This may well be what is used in the CMS simulations (I need to check) 
+ 
+The accuracy is estimated to be at worst 5% with a mean value of about 2.2% 
+ 
+Radiation length constant calculated as      716.408
+ 
+ 
+Hydrogen Z = 1 sigmaINFA, sigmaINFB =  0.020649 0.0205632 barns/atom 
+ 
+E = 0.01 GeV   Cross-section: 0.00322775 barns/atom  RatioA:  0.156315 RatioB  0.156968
+E = 0.03 GeV   Cross-section: 0.00696271 barns/atom  RatioA:  0.337194 RatioB  0.338601
+E =  0.1 GeV   Cross-section: 0.0116107 barns/atom  RatioA:  0.562289 RatioB  0.564636
+E =  0.3 GeV   Cross-section: 0.0155349 barns/atom  RatioA:  0.752333 RatioB  0.755474
+E = 0.74 GeV   Cross-section:  0.018064 barns/atom  RatioA:  0.874812 RatioB  0.878464
+E =    1 GeV   Cross-section: 0.0187202 barns/atom  RatioA:  0.906589 RatioB  0.910374
+E =    3 GeV   Cross-section: 0.0202413 barns/atom  RatioA:  0.980255 RatioB  0.984347
+E =   10 GeV   Cross-section: 0.0205212 barns/atom  RatioA:   0.99381 RatioB  0.997959
+E =   30 GeV   Cross-section: 0.0202791 barns/atom  RatioA:  0.982086 RatioB  0.986186
+E =  100 GeV   Cross-section: 0.0212672 barns/atom  RatioA:   1.02994 RatioB   1.03424
+ 
+ 
+Helium Z = 2 sigmaINFA, sigmaINFB = 0.0548065 0.0545489 barns/atom 
+ 
+E = 0.01 GeV   Cross-section: 0.0112501 barns/atom  RatioA:  0.205269 RatioB  0.206238
+E = 0.03 GeV   Cross-section: 0.0222924 barns/atom  RatioA:  0.406748 RatioB  0.408668
+E =  0.1 GeV   Cross-section: 0.0345043 barns/atom  RatioA:  0.629566 RatioB  0.632538
+E =  0.3 GeV   Cross-section: 0.0438013 barns/atom  RatioA:  0.799198 RatioB  0.802972
+E = 0.74 GeV   Cross-section: 0.0493226 barns/atom  RatioA:  0.899941 RatioB  0.904189
+E =    1 GeV   Cross-section: 0.0506873 barns/atom  RatioA:  0.924842 RatioB  0.929208
+E =    3 GeV   Cross-section: 0.0537054 barns/atom  RatioA:   0.97991 RatioB  0.984537
+E =   10 GeV   Cross-section: 0.0542198 barns/atom  RatioA:  0.989294 RatioB  0.993965
+E =   30 GeV   Cross-section: 0.0538477 barns/atom  RatioA:  0.982505 RatioB  0.987144
+E =  100 GeV   Cross-section: 0.0556659 barns/atom  RatioA:   1.01568 RatioB   1.02048
+ 
+ 
+Beryllium Z = 4 sigmaINFA, sigmaINFB =  0.178547  0.177689 barns/atom 
+ 
+E = 0.01 GeV   Cross-section:  0.040028 barns/atom  RatioA:  0.224187 RatioB   0.22527
+E = 0.03 GeV   Cross-section: 0.0763777 barns/atom  RatioA:  0.427773 RatioB   0.42984
+E =  0.1 GeV   Cross-section:  0.114012 barns/atom  RatioA:  0.638554 RatioB  0.641639
+E =  0.3 GeV   Cross-section:  0.140759 barns/atom  RatioA:  0.788358 RatioB  0.792167
+E = 0.74 GeV   Cross-section:  0.155663 barns/atom  RatioA:  0.871831 RatioB  0.876043
+E =    1 GeV   Cross-section:  0.159193 barns/atom  RatioA:  0.891601 RatioB  0.895908
+E =    3 GeV   Cross-section:  0.166647 barns/atom  RatioA:  0.933348 RatioB  0.937857
+E =   10 GeV   Cross-section:  0.167798 barns/atom  RatioA:  0.939795 RatioB  0.944336
+E =   30 GeV   Cross-section:  0.167134 barns/atom  RatioA:  0.936078 RatioB  0.940601
+E =  100 GeV   Cross-section:  0.171303 barns/atom  RatioA:  0.959424 RatioB   0.96406
+ 
+ 
+Carbon Z = 6 sigmaINFA, sigmaINFB =  0.363309  0.361506 barns/atom 
+ 
+E = 0.01 GeV   Cross-section: 0.0856725 barns/atom  RatioA:  0.235811 RatioB  0.236987
+E = 0.03 GeV   Cross-section:  0.161336 barns/atom  RatioA:  0.444074 RatioB  0.446289
+E =  0.1 GeV   Cross-section:  0.237873 barns/atom  RatioA:  0.654739 RatioB  0.658004
+E =  0.3 GeV   Cross-section:  0.290855 barns/atom  RatioA:  0.800571 RatioB  0.804563
+E = 0.74 GeV   Cross-section:  0.319595 barns/atom  RatioA:  0.879677 RatioB  0.884064
+E =    1 GeV   Cross-section:   0.32627 barns/atom  RatioA:   0.89805 RatioB  0.902528
+E =    3 GeV   Cross-section:   0.34004 barns/atom  RatioA:  0.935953 RatioB   0.94062
+E =   10 GeV   Cross-section:  0.342025 barns/atom  RatioA:  0.941414 RatioB  0.946109
+E =   30 GeV   Cross-section:  0.341009 barns/atom  RatioA:  0.938618 RatioB  0.943299
+E =  100 GeV   Cross-section:   0.34847 barns/atom  RatioA:  0.959156 RatioB  0.963939
+ 
+ 
+Neon Z = 10 sigmaINFA, sigmaINFB =  0.900826  0.896104 barns/atom 
+ 
+E = 0.01 GeV   Cross-section:  0.227026 barns/atom  RatioA:   0.25202 RatioB  0.253348
+E = 0.03 GeV   Cross-section:   0.42214 barns/atom  RatioA:  0.468614 RatioB  0.471083
+E =  0.1 GeV   Cross-section:  0.615735 barns/atom  RatioA:  0.683523 RatioB  0.687124
+E =  0.3 GeV   Cross-section:  0.746795 barns/atom  RatioA:  0.829011 RatioB   0.83338
+E = 0.74 GeV   Cross-section:  0.816202 barns/atom  RatioA:  0.906059 RatioB  0.910833
+E =    1 GeV   Cross-section:  0.832022 barns/atom  RatioA:  0.923622 RatioB  0.928488
+E =    3 GeV   Cross-section:   0.86387 barns/atom  RatioA:  0.958976 RatioB  0.964029
+E =   10 GeV   Cross-section:  0.867976 barns/atom  RatioA:  0.963533 RatioB   0.96861
+E =   30 GeV   Cross-section:  0.865987 barns/atom  RatioA:  0.961325 RatioB  0.966391
+E =  100 GeV   Cross-section:  0.882975 barns/atom  RatioA:  0.980184 RatioB  0.985349
+ 
+ 
+Aluminum Z = 13 sigmaINFA, sigmaINFB =    1.4513   1.44349 barns/atom 
+ 
+E = 0.01 GeV   Cross-section:  0.376322 barns/atom  RatioA:    0.2593 RatioB  0.260703
+E = 0.03 GeV   Cross-section:  0.695562 barns/atom  RatioA:  0.479268 RatioB  0.481861
+E =  0.1 GeV   Cross-section:   1.01013 barns/atom  RatioA:  0.696019 RatioB  0.699786
+E =  0.3 GeV   Cross-section:   1.22143 barns/atom  RatioA:  0.841607 RatioB  0.846162
+E = 0.74 GeV   Cross-section:   1.33234 barns/atom  RatioA:  0.918031 RatioB  0.922999
+E =    1 GeV   Cross-section:   1.35744 barns/atom  RatioA:  0.935323 RatioB  0.940385
+E =    3 GeV   Cross-section:   1.40741 barns/atom  RatioA:  0.969757 RatioB  0.975005
+E =   10 GeV   Cross-section:   1.41337 barns/atom  RatioA:  0.973866 RatioB  0.979136
+E =   30 GeV   Cross-section:   1.41033 barns/atom  RatioA:  0.971771 RatioB   0.97703
+E =  100 GeV   Cross-section:   1.43715 barns/atom  RatioA:  0.990248 RatioB  0.995607
+ 
+ 
+Silicon Z = 14 sigmaINFA, sigmaINFB =   1.66215   1.65314 barns/atom 
+ 
+E = 0.01 GeV   Cross-section:  0.434242 barns/atom  RatioA:  0.261253 RatioB  0.262677
+E = 0.03 GeV   Cross-section:  0.801236 barns/atom  RatioA:  0.482047 RatioB  0.484675
+E =  0.1 GeV   Cross-section:   1.16226 barns/atom  RatioA:  0.699247 RatioB   0.70306
+E =  0.3 GeV   Cross-section:    1.4043 barns/atom  RatioA:  0.844865 RatioB  0.849472
+E = 0.74 GeV   Cross-section:   1.53108 barns/atom  RatioA:  0.921143 RatioB  0.926165
+E =    1 GeV   Cross-section:   1.55972 barns/atom  RatioA:   0.93837 RatioB  0.943487
+E =    3 GeV   Cross-section:   1.61657 barns/atom  RatioA:  0.972575 RatioB  0.977878
+E =   10 GeV   Cross-section:   1.62318 barns/atom  RatioA:  0.976552 RatioB  0.981877
+E =   30 GeV   Cross-section:   1.61971 barns/atom  RatioA:  0.974466 RatioB  0.979779
+E =  100 GeV   Cross-section:   1.65033 barns/atom  RatioA:  0.992889 RatioB  0.998303
+ 
+ 
+Iron Z = 26 sigmaINFA, sigmaINFB =   5.21195   5.18182 barns/atom 
+ 
+E = 0.01 GeV   Cross-section:   1.44038 barns/atom  RatioA:   0.27636 RatioB  0.277967
+E = 0.03 GeV   Cross-section:   2.61361 barns/atom  RatioA:  0.501464 RatioB   0.50438
+E =  0.1 GeV   Cross-section:   3.75541 barns/atom  RatioA:  0.720538 RatioB  0.724728
+E =  0.3 GeV   Cross-section:   4.51291 barns/atom  RatioA:  0.865877 RatioB  0.870912
+E = 0.74 GeV   Cross-section:   4.90474 barns/atom  RatioA:  0.941055 RatioB  0.946527
+E =    1 GeV   Cross-section:   4.99215 barns/atom  RatioA:  0.957828 RatioB  0.963398
+E =    3 GeV   Cross-section:   5.16161 barns/atom  RatioA:   0.99034 RatioB  0.996099
+E =   10 GeV   Cross-section:   5.17537 barns/atom  RatioA:   0.99298 RatioB  0.998755
+E =   30 GeV   Cross-section:   5.16268 barns/atom  RatioA:  0.990546 RatioB  0.996306
+E =  100 GeV   Cross-section:   5.26108 barns/atom  RatioA:   1.00943 RatioB    1.0153
+ 
+ 
+Copper Z = 29 sigmaINFA, sigmaINFB =   6.38051   6.34317 barns/atom 
+ 
+E = 0.01 GeV   Cross-section:   1.77964 barns/atom  RatioA:  0.278919 RatioB  0.280561
+E = 0.03 GeV   Cross-section:    3.2172 barns/atom  RatioA:  0.504223 RatioB  0.507191
+E =  0.1 GeV   Cross-section:   4.61421 barns/atom  RatioA:  0.723172 RatioB   0.72743
+E =  0.3 GeV   Cross-section:   5.54003 barns/atom  RatioA:  0.868274 RatioB  0.873385
+E = 0.74 GeV   Cross-section:   6.01825 barns/atom  RatioA:  0.943224 RatioB  0.948777
+E =    1 GeV   Cross-section:   6.12476 barns/atom  RatioA:  0.959917 RatioB  0.965568
+E =    3 GeV   Cross-section:   6.33029 barns/atom  RatioA:  0.992129 RatioB  0.997969
+E =   10 GeV   Cross-section:   6.34515 barns/atom  RatioA:  0.994458 RatioB   1.00031
+E =   30 GeV   Cross-section:   6.32865 barns/atom  RatioA:  0.991871 RatioB  0.997711
+E =  100 GeV   Cross-section:   6.45079 barns/atom  RatioA:   1.01101 RatioB   1.01697
+ 
+ 
+Lead Z = 82 sigmaINFA, sigmaINFB =   42.0122     41.72 barns/atom 
+ 
+E = 0.01 GeV   Cross-section:    12.998 barns/atom  RatioA:  0.309388 RatioB  0.311554
+E = 0.03 GeV   Cross-section:   21.9849 barns/atom  RatioA:  0.523298 RatioB  0.526962
+E =  0.1 GeV   Cross-section:   30.6032 barns/atom  RatioA:  0.728437 RatioB  0.733538
+E =  0.3 GeV   Cross-section:   36.3222 barns/atom  RatioA:  0.864563 RatioB  0.870617
+E = 0.74 GeV   Cross-section:   39.2679 barns/atom  RatioA:  0.934678 RatioB  0.941223
+E =    1 GeV   Cross-section:   39.9136 barns/atom  RatioA:  0.950048 RatioB  0.956701
+E =    3 GeV   Cross-section:   41.0701 barns/atom  RatioA:  0.977576 RatioB  0.984421
+E =   10 GeV   Cross-section:   40.9192 barns/atom  RatioA:  0.973983 RatioB  0.980803
+E =   30 GeV   Cross-section:   40.6431 barns/atom  RatioA:  0.967413 RatioB  0.974187
+E =  100 GeV   Cross-section:   41.7505 barns/atom  RatioA:  0.993771 RatioB   1.00073
+ 
+ 
+Uranium Z = 92 sigmaINFA, sigmaINFB =   51.2358   50.8686 barns/atom 
+ 
+E = 0.01 GeV   Cross-section:    16.108 barns/atom  RatioA:  0.314389 RatioB  0.316659
+E = 0.03 GeV   Cross-section:   26.8707 barns/atom  RatioA:  0.524452 RatioB  0.528238
+E =  0.1 GeV   Cross-section:    37.171 barns/atom  RatioA:  0.725488 RatioB  0.730726
+E =  0.3 GeV   Cross-section:   44.0191 barns/atom  RatioA:  0.859147 RatioB   0.86535
+E = 0.74 GeV   Cross-section:   47.5504 barns/atom  RatioA:   0.92807 RatioB   0.93477
+E =    1 GeV   Cross-section:   48.3227 barns/atom  RatioA:  0.943142 RatioB  0.949951
+E =    3 GeV   Cross-section:   49.6821 barns/atom  RatioA:  0.969676 RatioB  0.976676
+E =   10 GeV   Cross-section:   49.4316 barns/atom  RatioA:  0.964786 RatioB  0.971752
+E =   30 GeV   Cross-section:   49.0469 barns/atom  RatioA:  0.957276 RatioB  0.964188
+E =  100 GeV   Cross-section:   50.4844 barns/atom  RatioA:  0.985333 RatioB  0.992447

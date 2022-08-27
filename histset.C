@@ -486,7 +486,36 @@ void histset::AnalyzeEntry(recosim& s){
 // Distributions of test photons.
 		FillTH1(id_gflux_eta, g_eta_physics, w);
 		FillTH1(id_gflux_E, gE, w);
-		FillTH1(id_gflux_log10E, log10(gE), w);   		
+		FillTH1(id_gflux_log10E, log10(gE), w);
+		
+// Define standard test thickness in radiation lengths leading to naive conversion probability of 1%.		
+		double fradl = -(9.0/7.0)*log(0.99);
+		double fradl2 = -(9.0/7.0)*log(0.98);    // similarly for 2%
+		double fradl3 = -(9.0/7.0)*log(0.999);    // similarly for 0.1%				
+		double xsratioSi = RatioOfPairProductionToTsai(gE, 14.0); 
+		double xsratioBe = RatioOfPairProductionToTsai(gE, 4.0);  
+		double xsratioC = RatioOfPairProductionToTsai(gE, 6.0); 
+		double xsratioF = RatioOfPairProductionToTsai(gE, 9.0);   // Looks like a good approximation   		  				
+		double pconv = 1.0 - exp(-( (7.0/9.0)*xsratioF*fradl));
+		double pconvvar = pconv*(1.0-pconv);
+		double pconv2 = 1.0 - exp(-( (7.0/9.0)*xsratioF*fradl2));
+		double pconvvar2 = pconv2*(1.0-pconv2);
+		double pconv3 = 1.0 - exp(-( (7.0/9.0)*xsratioF*fradl3));
+		double pconvvar3 = pconv3*(1.0-pconv3);		
+		
+// Make histograms with the distributions of conversion probability implicit in the 
+// set of Bernouilli trials (with different conversion probabilities associated with energy) for 
+// the three test thicknesses.
+		FillTH1(id_gflux_pconv, pconv, w);
+		FillTH1(id_gflux_pconvvar, pconvvar, w);
+		FillTH1(id_gflux_pconv2, pconv2, w);
+		FillTH1(id_gflux_pconvvar2, pconvvar2, w);
+		FillTH1(id_gflux_pconv3, pconv3, w);
+		FillTH1(id_gflux_pconvvar3, pconvvar3, w);
+		FillTH1(id_gflux_xsrSi, xsratioSi, w);
+		FillTH1(id_gflux_xsrC, xsratioC, w);
+		FillTH1(id_gflux_xsrBe, xsratioBe, w);
+		FillTH1(id_gflux_xsrF, xsratioF, w);																	
 		
 //		if( gpt_forcut < 1.0) continue;	
         //fill every bin up to the point of conversion or drift	

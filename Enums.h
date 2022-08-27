@@ -56,6 +56,16 @@
 		id_gflux_nowt,
 		id_gflux_E,
 		id_gflux_log10E,
+		id_gflux_pconv,
+		id_gflux_pconvvar,
+		id_gflux_pconv2,
+		id_gflux_pconvvar2,	
+		id_gflux_pconv3,
+		id_gflux_pconvvar3,
+		id_gflux_xsrSi,
+		id_gflux_xsrC,
+		id_gflux_xsrBe,	
+		id_gflux_xsrF,					
 		id_pc_chi2ndof,
         numTH1Hist
     };

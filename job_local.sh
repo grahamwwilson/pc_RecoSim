@@ -13,7 +13,7 @@
 LIST="local_test3"
 NUMFILES=0
 NTHREADS=1
-VERSION=2
+VERSION=8
 
 pwd
 hostname

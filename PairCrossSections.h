@@ -185,3 +185,14 @@ double ComputeCrossSectionPerAtom(double gammaEnergy, double Z){
     xSection = 1.0e-6*max(xSection, 0.); 
     return xSection; // units of barns
 }
+
+double RatioOfPairProductionToTsai(double gammaEnergy, double Z){
+
+    const double GeVtoMeV = 1000.0;
+    double sigmaINFA = ComputeApproxCrossSectionPerAtom(Z);
+    double E = gammaEnergy*GeVtoMeV;
+    double xs = ComputeCrossSectionPerAtom(E,Z);    
+    double ratio = xs/sigmaINFA;
+    return ratio;
+    
+}

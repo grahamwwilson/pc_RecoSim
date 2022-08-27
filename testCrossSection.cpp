@@ -21,14 +21,14 @@ int main(){
 // Looks like gamma conversion model is BetheHeitlerLPM
 
     const double GeVtoMeV = 1000.0;
-    const int NEL = 10;
-    const int NENERGIES = 9;    
-    string names[NEL] = { "Hydrogen", "Helium", "Beryllium", "Carbon", "Aluminum", "Silicon", "Iron", "Copper", "Lead", "Uranium" };
-    int elements[NEL] = { 1, 2, 4, 6, 13, 14, 26, 29, 82, 92 };        
-    double energies[NENERGIES] = {0.01, 0.03, 0.1, 0.3, 1.0, 3.0, 10.0, 30.0, 100.0};
+    const int NEL = 13;
+    const int NENERGIES = 10;    
+    string names[NEL] = { "Hydrogen", "Helium", "Beryllium", "Carbon", "Freon", "F/Ne", "Neon", "Aluminum", "Silicon", "Iron", "Copper", "Lead", "Uranium" };
+    double elements[NEL] = { 1, 2, 4, 6, 9, 9.5, 10, 13, 14, 26, 29, 82, 92 };        
+    double energies[NENERGIES] = {0.01, 0.03, 0.1, 0.3, 0.74, 1.0, 3.0, 10.0, 30.0, 100.0};
     
     for (int i=0; i<NEL; ++i) {
-        double Z = double(elements[i]);
+        double Z = elements[i];
         double sigmaINFA = ComputeApproxCrossSectionPerAtom(Z);
         double sigmaINFB = ComputeBetterCrossSectionPerAtom(Z);       
         cout << " " << endl;

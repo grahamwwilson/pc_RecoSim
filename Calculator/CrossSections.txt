@@ -1,0 +1,16 @@
+Initial estimates for cross-section ratio corrections come from 
+analysis of one file of |eta| < 0.1 data with 2725 photons.
+
+For this case the mean cross-section ratios are:
+
+Be: 0.8596      (assigned to BP)
+F:  0.8895      (assigned to all other layers)
+
+These will likely change as more statistics are 
+added (estimated stat. error is about 0.0005), the angular acceptance 
+is changed, and the factors are calculated for the remaining photon flux 
+incident on the radial super-layers.
+
+It is also likely that the Z dependence of the determination may need to be 
+a little more fine-grained. For example reflecting differences between 
+BPIX layers and others.
