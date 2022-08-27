@@ -1,16 +1,16 @@
 //       #include "histset2enums.h" 
 // bookeeping enumeration: if we do this we don't need to worry about hist pointer copies and merging
-       enum th1d_ids{
+    enum th1d_ids{
 		id_ptHist,
 	 	id_pzHist,
 		id_numpcHist,
 		id_numpccutHist,
-                id_ptCutHist,
+        id_ptCutHist,
 		id_pzCutHist,
 		id_numHGNPCHist,
-                id_ptHCutHist,
-                id_pzHCutHist,
-	        id_rerrHGNHist,	
+        id_ptHCutHist,
+        id_pzHCutHist,
+        id_rerrHGNHist,	
 		id_PVndof,
 		id_r25RHist,
 		id_r25CHist,
@@ -35,9 +35,9 @@
 		id_ePtnum, 
 		id_etksumnum,
 		id_eRnumf,
-                id_eRnumf_b2p5,
-                id_ePtnumf,
-                id_etksumnumf,
+        id_eRnumf_b2p5,
+        id_ePtnumf,
+        id_etksumnumf,
 		id_eRden,
 		id_eRden_b2p5,
 		id_eRden_nowt,
@@ -54,8 +54,11 @@
 		id_gflux,
 		id_gflux_eta,
 		id_gflux_nowt,
+		id_gflux_E,
+		id_gflux_log10E,
 		id_pc_chi2ndof,
-    	    numTH1Hist};
+        numTH1Hist
+    };
        
 	enum th2d_ids{
 		id_xyHist,
@@ -64,7 +67,7 @@
 		id_ndof_pcReta,
 		id_ndof_pcRpt,
 		id_ndof_pcHeta,
-                id_ndof_pcHpt,
+        id_ndof_pcHpt,
 		id_effptr_num,
 		id_effptr_den,
 		id_effptr_num_nowt,
@@ -78,8 +81,8 @@
 		id_pt_shared,
 		id_pt_rerr,
 		id_r_rerr,
-                id_reta_pc,
-                id_reta_effN,
+        id_reta_pc,
+        id_reta_effN,
 		id_reta_effD,
 		id_reta_effD_monobin,		
 		id_reta_effN_nowt,
@@ -94,4 +97,5 @@
 		id_nchi2_dr,
 		id_gfluxE,
 		id_effER_den,	
-	    numTH2Hist};
+	    numTH2Hist
+    };

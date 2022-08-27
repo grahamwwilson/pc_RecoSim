@@ -90,6 +90,8 @@ void histset::init(){
 
 	TH1Manager.at(id_gflux) = new MyTH1D("gflux", "photon r flux per mm",customNbins,0,25);	
 	TH1Manager.at(id_gflux_eta) = new MyTH1D("gflux_eta","photon physics #eta",48,-3.0,3.0);
+	TH1Manager.at(id_gflux_E) = new MyTH1D("gflux_E","photon energy",100,0.4,10.4);
+	TH1Manager.at(id_gflux_log10E) = new MyTH1D("gflux_log10E","photon log10(energy)",100,-0.4,2.1);	
 	TH1Manager.at(id_gflux_nowt) = new MyTH1D("gflux_nowt","photon r flux nowt",customNbins,0,25);
 	//TH1Manager.at(id_gflux_b2p5) = new MyTH1D("
 	TH1Manager.at(id_pc_chi2ndof) = new MyTH1D("pc_chi2ndof","chi2ndof",20,0,2);	

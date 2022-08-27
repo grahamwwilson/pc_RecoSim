@@ -418,7 +418,7 @@ void histset::AnalyzeEntry(recosim& s){
 		} //end mask4 check	
 	} // end of loop over all SimVtxs
 	
-///fresh flux plot stuff
+// fresh flux plot stuff
 //
 	std::vector<int> gidxlist =  getSimpleGidxList(s);
 	std::pair<std::vector<double>, std::vector<double> > g_endpoints{};
@@ -427,7 +427,7 @@ void histset::AnalyzeEntry(recosim& s){
 	double g_eta_physics;
 	//double gpt_forcut;
 	double gE;
-	//create upper bin edge vector
+	// create upper bin edge vector
 	std::vector<double> rbinedge{};
 	std::vector<double> rbincenter{};
 	int nbinsx;
@@ -439,18 +439,18 @@ void histset::AnalyzeEntry(recosim& s){
 		rbincenter.push_back(gfluxhist->GetBinCenter(i));
 	}
 		
-	//loop over valid photons
+	// loop over valid photons
 	for(int i=0; i< gidxlist.size(); i++){
-		//collect the endpoints for every valid photon
+		// collect the endpoints for every valid photon
 		g_endpoints = getGEndpoints(s, gidxlist[i]);
 
-		//if photon origin is outside of viewing range dont bother with it
+		// if photon origin is outside of viewing range dont bother with it
 		Sx = g_endpoints.first[0];
         Sy = g_endpoints.first[1];
         Sz = g_endpoints.first[2];
 
  		Rorigin = sqrt(Sx*Sx + Sy*Sy);
-        if(Rorigin > 25.) continue;
+        if(Rorigin > 25.) continue;    // Skip photons originating outside radius of interest
 
 		// coordinate geometry time
 		// first address only candidates that have valid endpoints
@@ -468,6 +468,7 @@ void histset::AnalyzeEntry(recosim& s){
 
 	    } // end valid endpoint check
 		else{
+		    // How does this happen? back-scatter? or kinematic cuts associated with storing Geant4 information??
 			//std::cout<<"No valid endpoint!! -- projecting arbitrary endpoint from origin and momentum vector\n"; 
 			// calculate Ex,Ex,Ez through scaling momentum
 			Rdrift = getDriftFromPxPyPz(s, gidxlist[i] );
@@ -478,10 +479,15 @@ void histset::AnalyzeEntry(recosim& s){
 		// if Rdrift is less than conversion point, then we drifted out of z .. so set rfinal=rdrift
 		if( Rdrift < Rfinal ) Rfinal = Rdrift;
 	 	g_eta_physics = SimTrk_eta.At( gidxlist[i] );
-		FillTH1(id_gflux_eta, g_eta_physics, w);
 //GWW		if( abs(g_eta_physics) > 0.1 ) continue; //central cut REMOVING Central cut for graham slides
 //		gpt_forcut = SimTrk_pt.At(gidxlist[i] );
 		gE = SimTrk_pt.At(gidxlist[i])*cosh( SimTrk_eta.At(gidxlist[i]) );
+		
+// Distributions of test photons.
+		FillTH1(id_gflux_eta, g_eta_physics, w);
+		FillTH1(id_gflux_E, gE, w);
+		FillTH1(id_gflux_log10E, log10(gE), w);   		
+		
 //		if( gpt_forcut < 1.0) continue;	
         //fill every bin up to the point of conversion or drift	
 		for(int j=0; j<rbinedge.size(); j++){
