@@ -1,4 +1,4 @@
-#include "PairCrossSections.h"
+#include "PhotonCrossSections.h"
 
 int main(){
 
@@ -22,10 +22,10 @@ int main(){
 
     const double GeVtoMeV = 1000.0;
     const int NEL = 13;
-    const int NENERGIES = 10;    
+    const int NENERGIES = 11;    
     string names[NEL] = { "Hydrogen", "Helium", "Beryllium", "Carbon", "Freon", "F/Ne", "Neon", "Aluminum", "Silicon", "Iron", "Copper", "Lead", "Uranium" };
     double elements[NEL] = { 1, 2, 4, 6, 9, 9.5, 10, 13, 14, 26, 29, 82, 92 };        
-    double energies[NENERGIES] = {0.01, 0.03, 0.1, 0.3, 0.74, 1.0, 3.0, 10.0, 30.0, 100.0};
+    double energies[NENERGIES] = {0.01, 0.03, 0.1, 0.3, 0.4, 0.74, 1.0, 3.0, 10.0, 30.0, 100.0};
     
     for (int i=0; i<NEL; ++i) {
         double Z = elements[i];
@@ -39,9 +39,42 @@ int main(){
         for (int j=0; j<NENERGIES; ++j) {
             double E = energies[j]*GeVtoMeV;
             double xs = ComputeCrossSectionPerAtom(E,Z);
-            cout << "E = " << setw(4) << energies[j] << " GeV   Cross-section: " << setw(9) << xs << " barns/atom " 
+            cout << "E = " << setw(4) << energies[j] << " GeV   photon->e+e- Cross-section: " << setw(9) << xs << " barns/atom " 
                  << " RatioA: " << setw(9) << xs/sigmaINFA << " RatioB " << setw(9) << xs/sigmaINFB << endl;           
         } 
     }
+    
+    for (int i=0; i<NEL; ++i) {
+        double Z = elements[i];
+        cout << " " << endl;
+        cout << " " << endl;
+        double xs1GeV = ComputeComptonCrossSectionPerAtom(1000.0,Z);
+        cout << names[i] << " Z = " << elements[i] << " sigma (1 GeV) =  " 
+             << setw(9) << xs1GeV << " barns/atom " << endl;
+        cout << " " << endl;
+        for (int j=0; j<NENERGIES; ++j) {
+            double E = energies[j]*GeVtoMeV;
+            double xs = ComputeComptonCrossSectionPerAtom(E,Z);
+            cout << "E = " << setw(4) << energies[j] << " GeV   Compton Cross-section: " << setw(9) << xs << " barns/atom " << endl; 
+        } 
+    } 
+    
+    for (int i=0; i<NEL; ++i) {
+        double Z = elements[i];
+        cout << " " << endl;
+        cout << " " << endl;
+        double sigmaINFA = ComputeApproxCrossSectionPerAtom(Z);        
+        cout << names[i] << " Z = " << elements[i] << " sigmaINFA = " << setw(9) << sigmaINFA << " barns/atom" << endl;
+        cout << " " << endl;
+        for (int j=0; j<NENERGIES; ++j) {
+            double E = energies[j]*GeVtoMeV;
+            double xsPair    = ComputeCrossSectionPerAtom(E,Z);
+            double xsCompton = ComputeComptonCrossSectionPerAtom(E,Z);
+            cout << "E = " << setw(4) << energies[j] << " GeV  Cross-sections (PP, CS): " << setw(12) << xsPair 
+                 << " " << setw(12) << xsCompton << "   PP/(PP+CS): " << setw(12) << xsPair/(xsPair+xsCompton) << endl; 
+        } 
+    }           
+    
+    
     return 0;
 }

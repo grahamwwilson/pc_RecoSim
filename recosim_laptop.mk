@@ -3,7 +3,7 @@
 main: histset.o recosim.o ParTreeProcessing.C Hungarian.cpp
 	g++ -o compiledThreads ParTreeProcessing.C -pthread -I /usr/include/boost `root-config --cflags --libs`
 
-histset.o: histset.C recosim.o Hungarian.h PCTools.h
+histset.o: histset.C recosim.o Hungarian.h PCTools.h PhotonCrossSections.h
 	g++ -c -pthread  histset.C -I /usr/include/boost `root-config --cflags --libs`
 
 recosim.o: recosim.C recosim.h
@@ -12,7 +12,7 @@ recosim.o: recosim.C recosim.h
 hung.o: Hungarian.cpp Hungarian.h
 	g++ -c -pthread Hungarian.cpp `root-config --cflags --libs`
 	
-test: PairCrossSections.h testCrossSection.cpp
+test: PhotonCrossSections.h testCrossSection.cpp
 	g++ -o testCrossSection testCrossSection.cpp
 
 clean:

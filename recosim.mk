@@ -3,7 +3,7 @@
 main: histset.o recosim.o ParTreeProcessing.C Hungarian.cpp
 	g++ -o compiledThreads ParTreeProcessing.C -pthread -I ${BOOSTINCLUDE} `root-config --cflags --libs`
 
-histset.o: histset.C recosim.o Hungarian.h PCTools.h
+histset.o: histset.C recosim.o Hungarian.h PCTools.h PhotonCrossSections.h
 	g++ -c -pthread  histset.C -I ${BOOSTINCLUDE} `root-config --cflags --libs`
 
 recosim.o: recosim.C recosim.h

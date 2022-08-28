@@ -1,6 +1,6 @@
 #include <iomanip>
 #include "Hungarian.h"
-#include "PairCrossSections.h"
+#include "PhotonCrossSections.h"
 #include "TMath.h"
 #include <set>
 

@@ -128,7 +128,8 @@ double ComputeBetterCrossSectionPerAtom(double Z){
  
 double ComputeCrossSectionPerAtom(double gammaEnergy, double Z){ 
 //
-//  Returns cross-section per atom in barns. Basically from G4BetheHeitlerModel.cc in Geant4.
+//  Returns cross-section per atom in barns. 
+//  This is basically G4BetheHeitlerModel::ComputeCrossSectionPerAtom from Geant4.
 // 
 //  gammaEnergy in MeV
 //  Z: atomic number (number of protons for elemental materials
@@ -186,6 +187,59 @@ double ComputeCrossSectionPerAtom(double gammaEnergy, double Z){
     return xSection; // units of barns
 }
 
+double ComputeComptonCrossSectionPerAtom(double gammaEnergy, double Z)
+{
+// This is essentially G4KleinNishinaCompton::ComputeCrossSectionPerAtom from Geant4.
+// It returns the Klein-Nishina Compton scattering cross-section in barns 
+// with gammaEnergy in MeV using the parametrization described in 6.4.1 of 
+// the Geant4 Physics Reference Manual 11.0 revision 6.0 of Dec 2021.
+//
+// Here input gammaEnergy is in units of MeV but G4 function expects keV
+  double GammaEnergy = 1000.0*gammaEnergy;
+
+  double xSection = 0.0 ;
+  if (GammaEnergy <= 0.1) { return xSection; }
+
+  static const double electron_mass_c2  = 0.51099906e3;  // keV
+
+  static const double a = 20.0 , b = 230.0 , c = 440.0;
+
+// Cross-section coefficients in barns
+  static const double
+  d1= 2.7965e-1, d2=-1.8300e-1, 
+  d3= 6.7527   , d4=-1.9798e+1,
+  e1= 1.9756e-5, e2=-1.0205e-2, 
+  e3=-7.3913e-2, e4= 2.7079e-2,
+  f1=-3.9178e-7, f2= 6.8241e-5, 
+  f3= 6.0480e-5, f4= 3.0274e-4;
+       
+  double p1Z = Z*(d1 + e1*Z + f1*Z*Z), p2Z = Z*(d2 + e2*Z + f2*Z*Z),
+         p3Z = Z*(d3 + e3*Z + f3*Z*Z), p4Z = Z*(d4 + e4*Z + f4*Z*Z);
+
+  double T0  = 15.0;   // keV 
+  if (Z < 1.5) { T0 = 40.0; }  // keV
+
+  double X   = max(GammaEnergy, T0) / electron_mass_c2;
+  xSection = p1Z*log(1.+2.*X)/X
+               + (p2Z + p3Z*X + p4Z*X*X)/(1. + a*X + b*X*X + c*X*X*X);
+                
+  //  modification for low energy. (special case for Hydrogen)
+  if (GammaEnergy < T0) {
+    static const double dT0 = 1.0; //keV
+    X = (T0+dT0) / electron_mass_c2 ;
+    double sigma = p1Z*log(1.+2*X)/X
+                    + (p2Z + p3Z*X + p4Z*X*X)/(1. + a*X + b*X*X + c*X*X*X);
+    double   c1 = -T0*(sigma-xSection)/(xSection*dT0);             
+    double   c2 = 0.150; 
+    if (Z > 1.5) { c2 = 0.375-0.0556*log(Z); }
+    double    y = log(GammaEnergy/T0);
+    xSection *= exp(-y*(c1+c2*y));          
+  }
+  // G4cout<<"e= "<< GammaEnergy<<" Z= "<<Z<<" cross= " << xSection << G4endl;
+  return xSection;  //units of barns
+}
+
+
 double RatioOfPairProductionToTsai(double gammaEnergy, double Z){
 
     const double GeVtoMeV = 1000.0;
@@ -194,5 +248,21 @@ double RatioOfPairProductionToTsai(double gammaEnergy, double Z){
     double xs = ComputeCrossSectionPerAtom(E,Z);    
     double ratio = xs/sigmaINFA;
     return ratio;
+    
+}
+
+std::pair<double, double> CrossSectionRatios(double gammaEnergy, double Z){
+
+    const double GeVtoMeV = 1000.0;
+    double xsINFA = ComputeApproxCrossSectionPerAtom(Z);        // Tsai high energy cross-section used in radiation length definition
+    double E = gammaEnergy*GeVtoMeV;
+    double xsPair = ComputeCrossSectionPerAtom(E,Z);            // photon conversion to e+e- pair (Bethe-Heitler)
+    double xsCompton = ComputeComptonCrossSectionPerAtom(E,Z);  // Compton scattering (Klein-Nishina)
+    double xsTotal = xsPair + xsCompton;                        // Neglect other photon interaction contributions to total cross-section besides photon conversion to e+e- and Compton Scattering
+    double pairFraction = xsPair/xsTotal;
+    double totalToTsai = xsTotal/xsINFA;
+    
+    std::pair<double,double> p = std::make_pair( pairFraction, totalToTsai);
+    return p;
     
 }
