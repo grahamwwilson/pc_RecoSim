@@ -3,63 +3,57 @@
 Results for |eta| < 1.25
 ------------------------
  
-corrtype:  4
+xsfactor:  0.87559
 region:  (BP   )
 nobs:    64682
 ngam:    33047557
 mbt:     0.29085
-Factor set to  0.8596
 Observed conversion probability in % 0.195723998599957 +- 0.0007688240034382973  (  0.39281028843565946 )
-Corresponding to  0.2930336526626338 +- 0.001152194633297973  radiation lengths in %  (  0.39319532853261774 )
-(RecoSIM/MBT ratio) for  (BP   ) 1.007507831055987 +- 0.003961473726312439
+Corresponding to  0.2876822803238959 +- 0.001131153287249669  radiation lengths in %  (  0.39319532853261774 )
+(RecoSIM/MBT ratio) for  (BP   ) 0.9891087513285058 +- 0.0038891294043309917
  
-corrtype:  0
+xsfactor:  0.90395
 region:  (BPIX1)
 nobs:    408888
 ngam:    32902522
 mbt:     1.9016
-Factor set to  0.8895
 Observed conversion probability in % 1.2427254056695107 +- 0.0019313346955694274  (  0.1554112185007542 )
-Corresponding to  1.807533337811661 +- 0.0028267471519924725  radiation lengths in %  (  0.15638699950147256 )
-(RecoSIM/MBT ratio) for  (BPIX1) 0.9505328869434482 +- 0.001486509861165583
+Corresponding to  1.7786391990524613 +- 0.002781560475355168  radiation lengths in %  (  0.15638699950147256 )
+(RecoSIM/MBT ratio) for  (BPIX1) 0.9353382409825732 +- 0.001462747410262499
  
-corrtype:  0
+xsfactor:  0.90395
 region:  (BPIX2)
 nobs:    434761
 ngam:    32388557
 mbt:     2.0138
-Factor set to  0.8895
 Observed conversion probability in % 1.342329020709382 +- 0.002022083658752037  (  0.15063994203771472 )
-Corresponding to  1.95338911044993 +- 0.0029625574277103786  radiation lengths in %  (  0.15166243181462213 )
-(RecoSIM/MBT ratio) for  (BPIX2) 0.9700015445674497 +- 0.0014711279311303898
+Corresponding to  1.9221634091987527 +- 0.0029151997698416746  radiation lengths in %  (  0.15166243181462213 )
+(RecoSIM/MBT ratio) for  (BPIX2) 0.9544956843771739 +- 0.0014476113664920423
  
-corrtype:  0
+xsfactor:  0.90395
 region:  (BPIX3)
 nobs:    448641
 ngam:    31827269
 mbt:     2.1175
-Factor set to  0.8895
 Observed conversion probability in % 1.4096119902716127 +- 0.002089620369761355  (  0.1482408197562731 )
-Corresponding to  2.051999106691746 +- 0.00306359487502759  radiation lengths in %  (  0.14929806085377637 )
-(RecoSIM/MBT ratio) for  (BPIX3) 0.9690668744707183 +- 0.0014467980519610815
+Corresponding to  2.0191970854608194 +- 0.0030146220934089735  radiation lengths in %  (  0.1492980608537764 )
+(RecoSIM/MBT ratio) for  (BPIX3) 0.9535759553533976 +- 0.001423670410110495
  
-corrtype:  0
+xsfactor:  0.90395
 region:  (BPIX4)
 nobs:    438583
 ngam:    30804492
 mbt:     2.4658
-Factor set to  0.8895
 Observed conversion probability in % 1.423763131688716 +- 0.0021345088670348695  (  0.14992022335226102 )
-Corresponding to  2.0727476008213 +- 0.0031298551963456892  radiation lengths in %  (  0.1510003048661363 )
-(RecoSIM/MBT ratio) for  (BPIX4) 0.840598426807243 +- 0.0012693061871788826
+Corresponding to  2.039613906665796 +- 0.003079823217157464  radiation lengths in %  (  0.15100030486613628 )
+(RecoSIM/MBT ratio) for  (BPIX4) 0.8271611268820649 +- 0.0012490158233260864
  
-corrtype:  0
+xsfactor:  0.90395
 region:  (Other)
 nobs:    664990
 ngam:    27115728
 mbt:     5.1844
-Factor set to  0.8895
 Observed conversion probability in % 2.4524143331132398 +- 0.0029702605759289254  (  0.12111577296803273 )
-Corresponding to  3.588995749072775 +- 0.004401255116733666  radiation lengths in %  (  0.12263194008716059 )
-(RecoSIM/MBT ratio) for  (Other) 0.6922682950915776 +- 0.0008489420408791115
+Corresponding to  3.5316242256764574 +- 0.004330899304535202  radiation lengths in %  (  0.12263194008716058 )
+(RecoSIM/MBT ratio) for  (Other) 0.681202111271595 +- 0.0008353713649670553
  

@@ -1,10 +1,12 @@
 Initial estimates for cross-section ratio corrections come from 
 analysis of one file of |eta| < 0.1 data with 2725 photons.
+<E_gamma> = 0.7410 GeV.
 
 For this case the mean cross-section ratios are:
-
 Be: 0.8596      (assigned to BP)
+C:  0.8681
 F:  0.8895      (assigned to all other layers)
+Si: 0.9099
 
 These will likely change as more statistics are 
 added (estimated stat. error is about 0.0005), the angular acceptance 
@@ -14,3 +16,29 @@ incident on the radial super-layers.
 It is also likely that the Z dependence of the determination may need to be 
 a little more fine-grained. For example reflecting differences between 
 BPIX layers and others.
+
+Initial estimates for cross-section ratio corrections come from 
+analysis of one file of |eta| < 0.7 data with 18629 photons. 
+Estimated errors are around 0.00018. 
+<E_gamma> = 0.8056 GeV
+
+For this case the mean cross-section ratios are:
+Be: 0.86557      (assigned to BP)
+C:  0.87365
+F:  0.89493      (assigned to all other layers)
+Si: 0.91520
+
+The increase in the cross-section ratio is because the energy is higher.
+
+Initial estimates for cross-section ratio corrections come from 
+analysis of one file of |eta| < 1.25 data with 33055 photons. 
+Estimated errors are around 0.00014. 
+<E_gamma> = 0.9508 GeV
+
+For this case the mean cross-section ratios are:
+Be: 0.87559      (assigned to BP)
+C:  0.88299
+F:  0.90395      (assigned to all other layers)
+Si: 0.92400
+
+The increase in the cross-section ratio is because the energy is higher.

@@ -7,7 +7,7 @@ def getArgs(argv=None):
 # Set command line configurable parameters. Do python3 program.py -h to see this in action.
     parser = ArgumentParser(description="Calculate radiation length from observations")
     
-    parser.add_argument("-c", "--corrtype", type=int, default="0", help="Cross-section correction choice")
+    parser.add_argument("-x", "--xsfactor", type=float, default="1.0", help="Cross-section ratio factor")
     parser.add_argument("-r", "--region", type=str, default="BP", help="Radial region")      
     parser.add_argument("-n", "--nobs", type=int, default=2, help="Number of observed photon conversions")    
     parser.add_argument("-d", "--ngam", type=int, default=100000, help="Number of incident photons")
@@ -18,11 +18,11 @@ def getArgs(argv=None):
     
     return args
     
-def showArgs(corrtype,region,nobs,ngam,mbt):
+def showArgs(xsfactor,region,nobs,ngam,mbt):
 # Check these are what we want
 #    print('(pvalueArgs.ShowArgs):')
     
-    print('corrtype: ',corrtype) 
+    print('xsfactor: ',xsfactor) 
     print('region: ',region)    
     print('nobs:   ',nobs)
     print('ngam:   ',ngam)
@@ -39,10 +39,10 @@ def getArguments(argv=None):
 
 #    print('(radlenArgs.getArguments) Assigning arguments to program variables')
    
-    corrtype = args.corrtype
+    xsfactor = args.xsfactor
     region = args.region    
     nobs = args.nobs
     ngam = args.ngam
     mbt = args.mbt
 
-    return corrtype,region,nobs,ngam,mbt    
+    return xsfactor,region,nobs,ngam,mbt    
