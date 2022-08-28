@@ -492,15 +492,21 @@ void histset::AnalyzeEntry(recosim& s){
 		double fradl = -(9.0/7.0)*log(0.99);
 		double fradl2 = -(9.0/7.0)*log(0.98);    // similarly for 2%
 		double fradl3 = -(9.0/7.0)*log(0.999);    // similarly for 0.1%				
+/*		
 		double xsratioSi = RatioOfPairProductionToTsai(gE, 14.0); 
 		double xsratioBe = RatioOfPairProductionToTsai(gE, 4.0);  
 		double xsratioC = RatioOfPairProductionToTsai(gE, 6.0); 
 		double xsratioF = RatioOfPairProductionToTsai(gE, 9.0);   // Looks like a good approximation   		  				
-		double pconv = 1.0 - exp(-( (7.0/9.0)*xsratioF*fradl));
+*/
+		std::pair<double, double> pxsratioSi = PhotonCrossSectionRatios(gE, 14.0); 
+		std::pair<double, double> pxsratioBe = PhotonCrossSectionRatios(gE, 4.0);  
+		std::pair<double, double> pxsratioC  = PhotonCrossSectionRatios(gE, 6.0); 
+		std::pair<double, double> pxsratioF  = PhotonCrossSectionRatios(gE, 9.0);   // Looks like a good approximation 		
+		double pconv = (pxsratioF.first)*(1.0 - exp(-( (7.0/9.0)*pxsratioF.second*fradl)));
 		double pconvvar = pconv*(1.0-pconv);
-		double pconv2 = 1.0 - exp(-( (7.0/9.0)*xsratioF*fradl2));
+		double pconv2 = (pxsratioF.first)*(1.0 - exp(-( (7.0/9.0)*pxsratioF.second*fradl2)));
 		double pconvvar2 = pconv2*(1.0-pconv2);
-		double pconv3 = 1.0 - exp(-( (7.0/9.0)*xsratioF*fradl3));
+		double pconv3 = (pxsratioF.first)*(1.0 - exp(-( (7.0/9.0)*pxsratioF.second*fradl3)));
 		double pconvvar3 = pconv3*(1.0-pconv3);		
 		
 // Make histograms with the distributions of conversion probability implicit in the 
@@ -512,10 +518,14 @@ void histset::AnalyzeEntry(recosim& s){
 		FillTH1(id_gflux_pconvvar2, pconvvar2, w);
 		FillTH1(id_gflux_pconv3, pconv3, w);
 		FillTH1(id_gflux_pconvvar3, pconvvar3, w);
-		FillTH1(id_gflux_xsrSi, xsratioSi, w);
-		FillTH1(id_gflux_xsrC, xsratioC, w);
-		FillTH1(id_gflux_xsrBe, xsratioBe, w);
-		FillTH1(id_gflux_xsrF, xsratioF, w);																	
+		FillTH1(id_gflux_xsrSi, pxsratioSi.first, w);
+		FillTH1(id_gflux_xsrC, pxsratioC.first, w);
+		FillTH1(id_gflux_xsrBe, pxsratioBe.first, w);
+		FillTH1(id_gflux_xsrF, pxsratioF.first, w);
+		FillTH1(id_gflux_xsrtSi, pxsratioSi.second, w);
+		FillTH1(id_gflux_xsrtC, pxsratioC.second, w);
+		FillTH1(id_gflux_xsrtBe, pxsratioBe.second, w);
+		FillTH1(id_gflux_xsrtF, pxsratioF.second, w);																				
 		
 //		if( gpt_forcut < 1.0) continue;	
         //fill every bin up to the point of conversion or drift	

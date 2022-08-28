@@ -66,6 +66,10 @@
 		id_gflux_xsrC,
 		id_gflux_xsrBe,	
 		id_gflux_xsrF,					
+		id_gflux_xsrtSi,
+		id_gflux_xsrtC,
+		id_gflux_xsrtBe,	
+		id_gflux_xsrtF,
 		id_pc_chi2ndof,
         numTH1Hist
     };

@@ -251,7 +251,7 @@ double RatioOfPairProductionToTsai(double gammaEnergy, double Z){
     
 }
 
-std::pair<double, double> CrossSectionRatios(double gammaEnergy, double Z){
+std::pair<double, double> PhotonCrossSectionRatios(double gammaEnergy, double Z){
 
     const double GeVtoMeV = 1000.0;
     double xsINFA = ComputeApproxCrossSectionPerAtom(Z);        // Tsai high energy cross-section used in radiation length definition
