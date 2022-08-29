@@ -42,3 +42,10 @@ F:  0.90395      (assigned to all other layers)
 Si: 0.92400
 
 The increase in the cross-section ratio is because the energy is higher.
+
+Redo for |eta| < 0.7. Now calculate ppfraction and totratio.
+Be: 0.95888  0.0134  9.85e-5,  0.902463   0.0163    1.20e-4
+C:
+F:  0.97810  0.0072  5.28e-5,  0.91483    0.0188    1.38e-4
+Si:
+

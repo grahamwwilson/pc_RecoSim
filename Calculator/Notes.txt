@@ -1,0 +1,79 @@
+Python 3.8.10 (default, Jun 22 2022, 20:18:18) 
+[GCC 9.4.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> p=0.010162048
+>>> t2=0.89493
+>>> c=(9.0/7.0)
+>>> import math
+>>> z2=-(c/t2)*math.log(1.0-p)
+>>> print(z2)
+0.014674141616553895
+>>> p=1.016204834357518e-2
+>>> z2=-(c/t2)*math.log(1.0-p)
+>>> print(z2)
+0.014674142115223696
+>>> t=0.91483
+>>> pp=0.97810
+>>> z3=-(c/t)*math.log(1.0-(p/pp))
+>>> print(z3)
+0.014678036579063945
+>>> print(z3/z2)
+1.0002653963556893
+>>> t1=t*pp
+>>> print(t1)
+0.894795223
+>>> z1=-(c/t1)*math.log(1.0-p)
+>>> print(z1)
+0.014676352382781041
+>>> print(z2/z1)
+0.999849399394366
+>>> print(z1/z2)
+1.0001506232895927
+>>> print(z1,z2,z3)
+0.014676352382781041 0.014674142115223696 0.014678036579063945
+>>> print(z1/z2,z2/z2,z3/z2)
+1.0001506232895927 1.0 1.0002653963556893
+>>> print(z3/z1)
+1.0001147557812033
+
+Notes. 
+In prior incarnation we had 
+i)  approximated tratio = sigmatot/sigmaINF as sigmaPP/sigmaINF
+ii) and ppfrac = 1.0
+
+This amounts to setting tratiop = tratio*ppfrac and setting ppfrac=1.0.
+(Or in other words   (PP+CS)/Tsai * (PP/(PP+CS)) = PP/Tsai )
+This does indeed lead to an order of 0.011% effect as calculated using a Maclaurin expansion of -ln(1-x).
+z3/z1 = (1 + (1/2) p/ppfrac) / (1 + (1/2)p). 
+
+Note that there is no guarantee that the sample means (obtained from histograms), namely of 
+<ppfrac> and <tratio> by integrating over the photon energy distribution
+will lead to 
+<ppfrac>*<tratio>= <sigmaPP/sigmaTsai> and in fact this is not the case.
+(t1 and t2 differ significantly above - by 0.015%).
+
+So the combined effect was 0.026% (ie. z3/z2).
+The difference is because x=ppfrac and y=totratio are correlated, thus, 
+
+cov(x,y) = rho*sx*sy = <xy> - <x><y> and rho is very close to +1.0.  (Measure 0.998274)
+This leads to a value for cov(x,y) of +0.000136  (ie. t2-t1 = 0.000135)
+Comparing simply z2 and z1, the difference is (z1/z2) = +0.000151.
+
+Probably the correct way to deal with all this would be to do 
+a maximum likelihood fit over the true energies.
+
+So there are two effects. 
+A) Comparing tratio = (PP+CS)/Tsai, ppfraction=PP/(PP+CS)   (z3)
+   with      tratio = PP/Tsai, ppfraction=1.0.              (z1)
+   If we use a value of tratio calculated using <x><y> (ie. t1), we get z3/z1 = 1.000115
+   
+B) On the other hand if we calculate z2 using <xy>=t2 and ppfraction = 1.0, 
+   we get z3/z2 = 1.000265.
+   
+It would likely be good to test all this with a toy MC set up and maximum likelihood fit.
+This would help evaluate whether <x> and <y> is most appropriate.
+
+It may be easier to test using thicker material, where the non-linear nature of the problem is more evident.   
+
+
+
