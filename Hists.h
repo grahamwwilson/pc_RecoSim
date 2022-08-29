@@ -105,7 +105,8 @@ void histset::init(){
 	TH1Manager.at(id_gflux_xsrtSi) = new MyTH1D("gflux_xsrtSi","Total cross-section ratio (Si)",400,0.80,1.05);
 	TH1Manager.at(id_gflux_xsrtC) = new MyTH1D("gflux_xsrtC","Total cross-section ratio (C)",400,0.80,1.05);	
 	TH1Manager.at(id_gflux_xsrtBe) = new MyTH1D("gflux_xsrtBe","Total cross-section ratio (Be)",400,0.80,1.05);
-	TH1Manager.at(id_gflux_xsrtF) = new MyTH1D("gflux_xsrtF","Total cross-section ratio (F)",400,0.80,1.05);											
+	TH1Manager.at(id_gflux_xsrtF) = new MyTH1D("gflux_xsrtF","Total cross-section ratio (F)",400,0.80,1.05);
+	TH1Manager.at(id_gflux_xsrpF) = new MyTH1D("gflux_xsrpF","ppfraction * totratio (F)",400,0.80,1.05);												
 	TH1Manager.at(id_gflux_nowt) = new MyTH1D("gflux_nowt","photon r flux nowt",customNbins,0,25);
 	//TH1Manager.at(id_gflux_b2p5) = new MyTH1D("
 	TH1Manager.at(id_pc_chi2ndof) = new MyTH1D("pc_chi2ndof","chi2ndof",20,0,2);	
@@ -178,7 +179,7 @@ void histset::init(){
       TH2Manager.at(id_effptr_num_nowt) = new MyTH2D("effptr_num_nowt", "eff by layer in pt no wt", NBINS, edges3, ptNBINS,ptedges);
       TH2Manager.at(id_effptr_den_nowt) = new MyTH2D("effptr_den_nowt", "eff by layer in pt no wt", NBINS, edges3, ptNBINS,ptedges);
 
-
+    TH2Manager.at(id_gflux_xsr2F) = new MyTH2D("gflux_xsr2F","Correction Factors;Pair Production Fraction;Total Cross-Section Ratio", 80,0.96,1.00,90,0.88,0.97);
 
     TH2Manager.at(id_pt_leadfound) = new MyTH2D("ptleadfound", "leading found hits",11,-0.5,10.5, 10,0,5);
     TH2Manager.at(id_pt_subfound) = new MyTH2D("ptsubfound", "sub leading found hits", 11, -0.5,10.5, 10,0,5);

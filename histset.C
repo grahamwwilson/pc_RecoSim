@@ -525,7 +525,9 @@ void histset::AnalyzeEntry(recosim& s){
 		FillTH1(id_gflux_xsrtSi, pxsratioSi.second, w);
 		FillTH1(id_gflux_xsrtC, pxsratioC.second, w);
 		FillTH1(id_gflux_xsrtBe, pxsratioBe.second, w);
-		FillTH1(id_gflux_xsrtF, pxsratioF.second, w);																				
+		FillTH1(id_gflux_xsrtF, pxsratioF.second, w);
+		FillTH1(id_gflux_xsrpF, pxsratioF.first*pxsratioF.second, w);		
+		FillTH2(id_gflux_xsr2F, pxsratioF.first, pxsratioF.second, w);																						
 		
 //		if( gpt_forcut < 1.0) continue;	
         //fill every bin up to the point of conversion or drift	

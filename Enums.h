@@ -70,6 +70,7 @@
 		id_gflux_xsrtC,
 		id_gflux_xsrtBe,	
 		id_gflux_xsrtF,
+		id_gflux_xsrpF,
 		id_pc_chi2ndof,
         numTH1Hist
     };
@@ -110,6 +111,7 @@
 		id_nchi2_r,
 		id_nchi2_dr,
 		id_gfluxE,
-		id_effER_den,	
+		id_effER_den,
+		id_gflux_xsr2F,	
 	    numTH2Hist
     };
