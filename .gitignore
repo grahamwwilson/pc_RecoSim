@@ -1,6 +1,7 @@
 testCrossSection
 *.root
 compiledThreads
+toyMC
 *.o
 *.swp
 *.log

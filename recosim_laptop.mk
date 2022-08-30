@@ -15,5 +15,8 @@ hung.o: Hungarian.cpp Hungarian.h
 test: PhotonCrossSections.h testCrossSection.cpp
 	g++ -o testCrossSection testCrossSection.cpp
 
+toy: PhotonCrossSections.h toyMC.cpp
+	g++ -o toyMC toyMC.cpp
+
 clean:
 	rm *.o
