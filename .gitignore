@@ -1,8 +1,10 @@
 testCrossSection
 *.root
+Conversions*.dat
 compiledThreads
 toyMC
 *.o
 *.swp
 *.log
+toyMC.ou*
 __pycache__
