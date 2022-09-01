@@ -9,12 +9,15 @@ int main(){
     ofstream fout;
     fout.open("Conversions.dat");
 
+    const int VERSION=1;
+
     unsigned long int seed;
-    seed = 124794357L;        
+    seed = 213794357L;        
 /*
     cout << "Give seed value " << endl;
     cin >> seed;
 */
+    cout << "Code version " << VERSION << endl;
     cout << "Base seed set to " << seed << endl;
 
     RandomNumberGenerator ge(seed);
@@ -22,8 +25,7 @@ int main(){
 
     const double GeVtoMeV = 1000.0;
     const double barnstocmsq = 1.0e-24;
-    const int NPHOTONS = 1000000;
-    const int NSLICES = 1000;
+    const int NPHOTONS = 10000000;
     const double SEVENOVERNINE = 7.0/9.0;
     const double ECUT = 0.4;   
     const double Z = 6.0;             // Choose Carbon for now.
@@ -73,32 +75,36 @@ int main(){
         tratiosum += tratio;
         tppsum += (xsPair/xsTsai);        
         
-// Divide target into many slices each with same thickness
-        int iresult = 0;     // survival
-        for (int j=0; j<NSLICES; ++j){
-             double Lumi = (NA/A)*rho*targett/double(NSLICES);   //cm^-2
-             double pint1 = xsTotal*Lumi*barnstocmsq;  // interaction probability per layer = sigma*L.
-             double dx = targett/double(NSLICES);      // slice thickness [cm]
-             double probInt = SEVENOVERNINE * tratio * (rho*dx/radlen); // written more explicitly as (7/9) tratio (x/X0) 
-//             cout << "pint1 = " << pint1 << " pint2 = " << pint2 << endl;
-//             if(j==0)cout << "pint = " << pint << endl;
-             double r = uniform(gu);
-// Interaction in this layer
-             if(r <= probInt){
-                 if(r <= ppFraction*probInt){
-                    iresult = 1;   // conversion in this layer
-                 }
-                 else{
-                    iresult = 2;   // Compton scattering
-                 }
-//                 cout << "Interaction in layer " << j << " with result " << iresult << " E = " << EinGeV << endl;                 
-             }
-             if(iresult != 0)break; // Photon already interacted break out of loop
+        int iresult;
+        
+// Instead of slicing, we will use the Poisson limit theorem result for infinitesimally small slices.
+        double Lumi = (NA/A)*rho*targett;   //cm^-2
+        double pint1 = xsTotal*Lumi*barnstocmsq;  // interaction probability per layer = sigma*L.
+        double dx = targett;                      // target thickness [cm]
+        double probInt = SEVENOVERNINE * tratio * (rho*dx/radlen); // written more explicitly as (7/9) tratio (x/X0) 
+
+        double r0 = uniform(gu);
+        double probq = exp(-probInt);    // probability of no interaction
+
+        if(r0 <= probq){
+            iresult = 0;                 // no interaction        
         }
+        else{                            // there is at least one interaction
+            double r1 = uniform(gu);     // For our present purposes we only care about the first interaction
+            if( r1 <= ppFraction ){      
+                iresult = 1;             // photon conversion to e+e- pair
+            }
+            else{
+                iresult = 2;             // Other photon interaction (currently only Compton scattering is accounted for)
+            }
+        }
+        
         if(iresult == 0)nsurviving++;
         if(iresult == 1)nconversions++;
         if(iresult == 2)ncomptons++;
+        
         fout << iresult << " " << EinGeV << " " << ppFraction << " " << tratio << endl;
+
     }
     cout << " " << endl;
     cout << "<Energy> = "      << Esum/double(NPHOTONS) << endl;
