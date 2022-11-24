@@ -157,6 +157,12 @@ void histsetdata::AnalyzeEntry(datatree& s){
 //	if( sum_sumtkw > 20 || sum_sumtkw < 8 ) return; //tight cut with low cut
 //	if( sum_sumtkw > 40 || sum_sumtkw < 10 ) return;
 
+// New cuts
+    if(nPV==0)return;
+    if(sum_sumtkw<3.999999)return;
+    
+    if(nPV>1)return;
+
 	FillTH1(id_sumpvtrksum, sum_sumtkw, w);	
 
     //plot "raw" conv stuff

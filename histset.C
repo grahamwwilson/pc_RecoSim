@@ -129,6 +129,7 @@ void histset::AnalyzeEntry(recosim& s){
 	w = w_sumtk* w_evt;
     // Reset to a weight of 1  Graham
     w = 1.0;
+		
 	
 	FillTH1(id_npv, nPV,w); 
 //if(nPV != 1 || PV_ndof[0] > 50) return;       
@@ -156,6 +157,10 @@ void histset::AnalyzeEntry(recosim& s){
 	//if( sum_sumtkw > 20 ) return; //testing the tight cut
 //	if( sum_sumtkw > 20 || sum_sumtkw < 8 ) return; //tight cut with low cut
 //	if( sum_sumtkw > 40 || sum_sumtkw < 10 ) return;
+
+// New cuts
+    if(nPV==0)return;
+    if(sum_sumtkw<3.999999)return;
 
 	FillTH1(id_sumpvtrksum, sum_sumtkw, w);	
 
