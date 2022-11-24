@@ -1,9 +1,9 @@
 // Now in "histset2init.h"
 
-void histset::init(){
+//void histset::init(){
 //init TH1D
      TH1::SetDefaultSumw2();
-    int customNbins = 350;//changed from 100 (2p5 mm bin) for truth testing and to resolve BP
+    int customNbins = 400;//changed from 100 (2p5 mm bin) for truth testing and to resolve BP
     int customEbins = 40;
     //int customNbins2 = 250;
     TH1Manager.at(id_ptHist) = new MyTH1D("ptHist", "p_{T} Distribution;p_{T};1/p_{T} dN/dp_{T}", 100, 0.0, 20.0);
@@ -27,6 +27,9 @@ void histset::init(){
     TH1Manager.at(id_r25HHist) = new MyTH1D("r25Hist","r dist (HGN)",250,0,25);
     TH1Manager.at(id_r25Hist_b2p5) = new MyTH1D("r25Hist_b2p5","r dist(2.5mm)",customNbins,0,25);
     TH1Manager.at(id_r25Hist_b2p5_nowt) = new MyTH1D("r25Hist_b2p5_nowt","r dist(2.5mm) no wt",customNbins,0,25);
+    
+    TH1Manager.at(id_rho25HHist) = new MyTH1D("rho25Hist","rho dist (HGN)",250,0,25);
+    TH1Manager.at(id_rps25HHist) = new MyTH1D("rps25Hist","rps dist (HGN)",250,0,25);    
 
     // TH1Manager.at(id_r25Hist_Truth_b2p5) = new MyTH1D("r25Hist_truth","r dist sim truth", customNbins,0,25);
 

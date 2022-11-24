@@ -1,13 +1,13 @@
-#ifndef HISTS
-#define HISTS
+#ifndef HISTSDATA
+#define HISTSDATA
 #include "TH1D.h"
 #include "TH2D.h"
 #include "TMath.h"
 #include "ROOT/TThreadedObject.hxx"
 #include "TTreeReader.h"
 #include "TTreeReaderValue.h"
-#include "recosim.C"
-#include "PCTools.h"
+#include "datatree.C"
+#include "PCToolsData.h"
 #include "Math/Vector3D.h"
 #include "Math/Vector4D.h"
 #include <map>
@@ -23,13 +23,13 @@ using MyTH2D = ROOT::TThreadedObject<TH2D>;
 
 // struct for derived quantities of each conversion
 
-class histset{
+class histsetdata{
     public:
        double PI =4.0*atan(1.0);
-       histset();
+       histsetdata();
        void init();
        void setweightoption();
-       void AnalyzeEntry(recosim& s);
+       void AnalyzeEntry(datatree& s);
        #include "Enums.h"
 // make a big vector and load enumerated histograms onto the vector
        std::vector<MyTH1D*>  TH1Manager{};
@@ -40,7 +40,7 @@ class histset{
        void WriteHist();
 };
 
-histset::histset(){
+histsetdata::histsetdata(){
     std::vector<MyTH1D*>  Manager1(numTH1Hist);
     TH1Manager=Manager1;
     std::vector<MyTH2D*>  Manager2(numTH2Hist);
@@ -49,7 +49,7 @@ histset::histset(){
     setweightoption();
 }
 
-void histset::setweightoption(){
+void histsetdata::setweightoption(){
     for(int i=0; i<numTH1Hist; i++){
         auto hptr = TH1Manager.at(i)->Get();
         hptr->Sumw2(kTRUE);
@@ -60,21 +60,21 @@ void histset::setweightoption(){
     }
 }
 
-void histset::init(){
+void histsetdata::init(){
 #include "Hists.h"     //Put the histogram declarations in one separate file
 
-void histset::FillTH1(int index, double x, double w=1.0){
+void histsetdata::FillTH1(int index, double x, double w=1.0){
 	//we must make pointer copies for performance reasons when trying to fill a histogram
 	auto myhist = TH1Manager.at(index)->Get();
 	myhist->Fill(x,w);
 }
 
-void histset::FillTH2(int index, double x, double y, double w=1.0){
+void histsetdata::FillTH2(int index, double x, double y, double w=1.0){
 	auto myhist = TH2Manager.at(index)->Get();
 	myhist->Fill(x,y,w);
 }
 
-void histset::WriteHist(){
+void histsetdata::WriteHist(){
 
 	TFile* outfile = new TFile("Outfile.root", "RECREATE");
 
@@ -108,15 +108,15 @@ void histset::WriteHist(){
 	outfile->Close();
 }
 
-void histset::AnalyzeEntry(recosim& s){
+void histsetdata::AnalyzeEntry(datatree& s){
 
 	double w = 1.0;
-	#include "localTreeMembers.h"     //All the variable incantations needed
+	#include "localTreeMembersData.h"     //All the variable incantations needed
     // calculate common variables
-    std::vector<CommonVars> CVs = GetCommonVars(s,false);	
+    std::vector<CommonVars> CVs = GetCommonVars(s, true);	
 	
 	//double w_ndof = w_pvndof0_BC;
-	double w_sumtk = w_pvtk_BC;
+	//double w_sumtk = w_pvtk_BC;
 	//double w_evt = 54.7157747; //with ndof 100 cut
 	//double w_evt = 28.3953880;
 //	double w_evt = 12.1005464; //with sumtrk 40 cut	
@@ -126,7 +126,7 @@ void histset::AnalyzeEntry(recosim& s){
 	double w_evt = 20.23366; //bug fix reweighting
 	//if(nPV == 1 && PV_ndof[0] >50) w_ndof=1.0;
 	//w = w_ndof * w_evt;
-	w = w_sumtk* w_evt;
+	//w = w_sumtk* w_evt;
     // Reset to a weight of 1  Graham
     w = 1.0;
 	
@@ -162,7 +162,6 @@ void histset::AnalyzeEntry(recosim& s){
     //plot "raw" conv stuff
     FillTH1( id_numpcHist, numberOfPC,w);
 
-
     for(int i=0; i<numberOfPC; i++){
         double PC_pt = sqrt(PC_Px[i]*PC_Px[i] + PC_Py[i] * PC_Py[i]);
         FillTH1( id_pzHist, PC_Pz[i],w);
@@ -187,8 +186,8 @@ void histset::AnalyzeEntry(recosim& s){
             npcCut++;
             FillTH1(id_ptCutHist, PC_pt, w);
             FillTH1(id_pzCutHist, PC_Pz[i], w);
-           // FillTH2(id_xywideCPCHist, CVs[i].x, CVs[i].y, w);           
-			FillTH1(id_r25CHist , CVs[i].radius,w);
+           // FillTH2(id_xywideCPCHist, CVs[i].x, CVs[i].y, w);
+			FillTH1(id_r25CHist , CVs[i].radius, w);			
 			FillTH1(id_etaCutHist, CVs[i].etaphys, w);
         }
     }
@@ -198,14 +197,8 @@ void histset::AnalyzeEntry(recosim& s){
 
     hgn_pc HGN = pc_disambiguation(s,cutmask);
     std::vector<bool> HGNmask(numberOfPC,false);
-	double cutdL = 0.5;
-	//std::map<int, std::pair<int, double> > pcMatchColl = getPCMatchingColl(s,cutdL); // get matches for eff numerator
-    std::map<int, std::vector<double> > pcMatchColl = getPCMatchingColl(s,cutdL);
 	FillTH1( id_numHGNPCHist, HGN.vsel.size(), w);
     int cidx;
-	double ptp;
-	//std::pair<int,double> match_criteria;
-	std::vector<double>  match_criteria;
 
 	int leadfound,subfound,leadlost,sublost,leadqual,subqual;
     for(int i=0; i<HGN.vsel.size(); i++){
@@ -218,6 +211,8 @@ void histset::AnalyzeEntry(recosim& s){
         FillTH2( id_xyHist, CVs[cidx].x, CVs[cidx].y, w);
         FillTH2( id_xywideHist, CVs[cidx].x, CVs[cidx].y, w);
     	FillTH1(id_r25HHist , CVs[cidx].radius,w);
+        FillTH1(id_rho25HHist, CVs[cidx].rho,w);
+        FillTH1(id_rps25HHist, CVs[cidx].rps,w);    	
 		FillTH1(id_r25Hist_b2p5, CVs[cidx].radius, w);
 		FillTH1(id_r25Hist_b2p5_nowt, CVs[cidx].radius, 1);
 		FillTH1(id_r25coarse, CVs[cidx].radius, w);
@@ -242,6 +237,7 @@ void histset::AnalyzeEntry(recosim& s){
 		if(CVs[cidx].radius > 8 && CVs[cidx].radius < 25 )
 		FillTH1( id_sumtksum_rhi, sum_sumtkw, w);
 
+/* Efficiency stuff
 		match_criteria = pcMatchColl[cidx];
 		FillTH1(id_matchdR, match_criteria.at(1), w);
 
@@ -297,10 +293,13 @@ void histset::AnalyzeEntry(recosim& s){
             FillTH1(id_ePtnumf,CVs[cidx].pt,w);
             FillTH1(id_etksumnumf, sum_sumtkw, w);
 		}
+*/		
 	}
 
+
+
 /////////////////// Efficiency stuff
-	sim_pc SPC = GetSimPC(s);//need to apply cuts by hand
+//	sim_pc SPC = GetSimPC(s);//need to apply cuts by hand
 //	std::vector< std::pair<int, int> > GColl = getGParentColl(s);
 //	std::vector< std::pair<int, double> > pcMatchColl = getPCMatchingColl(s, 0.5);
 	//debug GColl
@@ -317,6 +316,8 @@ void histset::AnalyzeEntry(recosim& s){
 		std::cout<<"PC"<<i<<" Mtype: "<<pcMatchColl[i].first<<" dR: "<<pcMatchColl[i].second<<"\n";
 	}
 */
+
+/*
 
 //////////////////////testing masking from early build
 
@@ -497,12 +498,12 @@ void histset::AnalyzeEntry(recosim& s){
 		double fradl = -(9.0/7.0)*log(0.99);
 		double fradl2 = -(9.0/7.0)*log(0.98);    // similarly for 2%
 		double fradl3 = -(9.0/7.0)*log(0.999);    // similarly for 0.1%				
-/*		
-		double xsratioSi = RatioOfPairProductionToTsai(gE, 14.0); 
-		double xsratioBe = RatioOfPairProductionToTsai(gE, 4.0);  
-		double xsratioC = RatioOfPairProductionToTsai(gE, 6.0); 
-		double xsratioF = RatioOfPairProductionToTsai(gE, 9.0);   // Looks like a good approximation   		  				
-*/
+		
+//	double xsratioSi = RatioOfPairProductionToTsai(gE, 14.0); 
+//		double xsratioBe = RatioOfPairProductionToTsai(gE, 4.0);  
+//		double xsratioC = RatioOfPairProductionToTsai(gE, 6.0); 
+//		double xsratioF = RatioOfPairProductionToTsai(gE, 9.0);   // Looks like a good approximation   		  				
+
 		std::pair<double, double> pxsratioSi = PhotonCrossSectionRatios(gE, 14.0); 
 		std::pair<double, double> pxsratioBe = PhotonCrossSectionRatios(gE, 4.0);  
 		std::pair<double, double> pxsratioC  = PhotonCrossSectionRatios(gE, 6.0); 
@@ -548,6 +549,7 @@ void histset::AnalyzeEntry(recosim& s){
 			}
 		} // end bin edge loop					
 	} // end gidxlist loop
+*/
 	
 } // End of sub-program
 #endif

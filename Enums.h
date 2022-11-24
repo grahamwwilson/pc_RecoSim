@@ -15,6 +15,8 @@
 		id_r25RHist,
 		id_r25CHist,
 		id_r25HHist,
+		id_rho25HHist,
+		id_rps25HHist,
 		id_r25Hist_b2p5,
 		id_r25Hist_b2p5_nowt,
 		id_r25coarse,

@@ -2,6 +2,7 @@ testCrossSection
 *.root
 Conversions*.dat
 compiledThreads
+compiledThreadsData
 toyMC
 *.o
 *.swp

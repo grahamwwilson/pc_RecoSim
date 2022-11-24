@@ -40,7 +40,7 @@ int main(){
     cout << "radlength = " << radlength << " cm     " << endl;
     
 // Set target thickness
-    double targett = 2.00*radlength;    
+    double targett = 0.015*radlength;    
     
     exponential_distribution<double> expo(3.0);
     uniform_real_distribution<double> uniform;
