@@ -5,8 +5,8 @@
 # Need to source ROOT for hadd step
 . ./setenv.sh
 
-mkdir Collating/MC
-cd Collating/MC
+mkdir Collating/MC-V5
+cd Collating/MC-V5
 
 execdir=../../pc_ExecutionDirectory
 jobfile=../../Lists/jobs.list
