@@ -10,7 +10,7 @@
 #SBATCH --output=conv2_%j.log           # Standard output and error log
 
 LIST="MinBias3_2018B"
-NUMFILES=72
+NUMFILES=0
 NTHREADS=12
 VERSION=1
 
