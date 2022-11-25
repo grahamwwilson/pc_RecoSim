@@ -17,9 +17,11 @@
     TH1Manager.at(id_numHGNPCHist) = new MyTH1D("numHGNPCHist", "Number of PC after disambiguation;;Entries per bin",100,-0.5,99.5);
     TH1Manager.at(id_ptHCutHist) = new MyTH1D("ptHCutHist", "p_{T} Distribution after Selection + HGN;p_{T};1/p_{T} dN/dp_{T}", 100, 0.0, 5.0);
     TH1Manager.at(id_pzHCutHist) = new MyTH1D("pzHCutHist", "p_{Z} Distribution after Selection + HGN;p_{Z};dN/dp_{Z}", 100, 0.0, 5.0);
+    TH1Manager.at(id_phiHCutHist) = new MyTH1D("phiHCutHist", "Phi Distribution after Selection + HGN; Phi (rad); Conversions per bin", 96, 0.0, 2.0*M_PI);
+    TH1Manager.at(id_zHCutHist) = new MyTH1D("zHCutHist", "z Distribution after Selection + HGN; z (cm); Conversions per bin", 100, -25.0, 25.0);           
     TH1Manager.at(id_etaCutHist) = new MyTH1D("etaCutHist", "#eta after selection",48,-3.0,3.0);
     TH1Manager.at(id_etaHGNHist) = new MyTH1D("etaHGNHist", "#eta after selection +HGN",48,-3.0,3.0);
-
+ 
     TH1Manager.at(id_rerrHGNHist) = new MyTH1D("rerrHGNHist", "radial resolution", 30,0,0.3);
 
     TH1Manager.at(id_r25RHist) = new MyTH1D("r25RHist","r dist (Raw)",250,0,25);
@@ -27,6 +29,8 @@
     TH1Manager.at(id_r25HHist) = new MyTH1D("r25Hist","r dist (HGN)",250,0,25);
     TH1Manager.at(id_r25Hist_b2p5) = new MyTH1D("r25Hist_b2p5","r dist(2.5mm)",customNbins,0,25);
     TH1Manager.at(id_r25Hist_b2p5_nowt) = new MyTH1D("r25Hist_b2p5_nowt","r dist(2.5mm) no wt",customNbins,0,25);
+    
+    TH1Manager.at(id_radialphi) = new MyTH1D("radialphi"," ",12*customNbins,0,12.0*25.0);    
     
     TH1Manager.at(id_rho25HHist) = new MyTH1D("rho25Hist","rho dist (HGN)",250,0,25);
     TH1Manager.at(id_rps25HHist) = new MyTH1D("rps25Hist","rps dist (HGN)",250,0,25);    

@@ -219,13 +219,23 @@ void histset::AnalyzeEntry(recosim& s){
         double PC_pt = sqrt(PC_Px[cidx]*PC_Px[cidx] + PC_Py[cidx]*PC_Py[cidx]);
         FillTH1( id_ptHCutHist, PC_pt, w);
         FillTH1( id_pzHCutHist, PC_Pz[cidx], w);
+        FillTH1(id_phiHCutHist, CVs[cidx].phi, w);
+        FillTH1(id_zHCutHist, CVs[cidx].z, w);        
 //       FillTH2( id_xywideHGNPCHist, CVs[cidx].x, CVs[cidx].y, w);
         FillTH2( id_xyHist, CVs[cidx].x, CVs[cidx].y, w);
         FillTH2( id_xywideHist, CVs[cidx].x, CVs[cidx].y, w);
     	FillTH1(id_r25HHist , CVs[cidx].radius,w);
+        FillTH1(id_rho25HHist, CVs[cidx].rho,w);
+        FillTH1(id_rps25HHist, CVs[cidx].rps,w);     	
 		FillTH1(id_r25Hist_b2p5, CVs[cidx].radius, w);
 		FillTH1(id_r25Hist_b2p5_nowt, CVs[cidx].radius, 1);
 		FillTH1(id_r25coarse, CVs[cidx].radius, w);
+		
+		int iphi = (CVs[cidx].phi)/(2.0*M_PI/12.0);  // Phi sector
+		if(CVs[cidx].radius < 25.0){
+		    FillTH1(id_radialphi, CVs[cidx].radius + double(iphi)*25.0, w);
+		}
+		
 		FillTH1(id_etaHGNHist, CVs[cidx].etaphys,w);
         FillTH2(id_ndof_pcHeta, PV_ndof[0] ,CVs[cidx].etaphys,w);
         FillTH2(id_ndof_pcHpt, PV_ndof[0], PC_pt,w);
